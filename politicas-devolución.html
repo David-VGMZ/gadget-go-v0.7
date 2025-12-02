@@ -21,73 +21,33 @@
         box-shadow: 0 6px 18px rgba(0,0,0,.2); z-index: 9999;
         }
 
-            #btnUp {
-                position: fixed;
-                right: 90rem;
-                bottom: 16px;
-                padding: 8px 8px;
-                border: 0;
-                border-radius: 10px;
-                background: #2d5d9b;
-                color: white;
-                font-size: 14px;
-                cursor: pointer;
-                box-shadow: 0 6px 18px rgba(0,0,0,.3);
-                z-index: 9999;
-                transition: all 0.3s ease;
-            }
-
-        @media (max-width: 576px) { 
-            #btnUp {
-                    position: fixed;
-                    right: 90rem;
-                    bottom: 16px;
-                    padding: 8px 8px;
-                    border: 0;
-                    border-radius: 10px;
-                    background: #2d5d9b;
-                    color: white;
-                    font-size: 14px;
-                    cursor: pointer;
-                    box-shadow: 0 6px 18px rgba(0,0,0,.3);
-                    z-index: 9999;
-                    transition: all 0.3s ease;
-                }
-            }
-
-        @media (max-width: 576px) { 
-            #btnUp:hover {
-                position: fixed;
-                right: 320px;
-                bottom: 16px;
-                padding: 8px 8px;
-                border: 0;
-                border-radius: 10px;
-                background: #1b4986;
-                color: white;
-                font-size: 14px;
-                cursor: pointer;
-                box-shadow: 0 6px 18px rgba(0,0,0,.3);
-                z-index: 9999;
-                transition: all 0.3s ease;
-            }
+        #btnUp {
+            position: fixed;
+            right: 90rem;
+            bottom: 16px;
+            padding: 8px 8px;
+            border: 0;
+            border-radius: 20px;
+            background: #2d5d9b;
+            color: white;
+            font-size: 14px;
+            cursor: pointer;
+            box-shadow: 0 6px 18px rgba(0,0,0,.3);
+            z-index: 9999;
+            transition: all 0.3s ease;
+            opacity: 0;
+            pointer-events: none;
         }
 
         #btnUp:hover {
-                position: fixed;
-                right: 90rem;
-                bottom: 16px;
-                padding: 8px 8px;
-                border: 0;
-                border-radius: 10px;
-                background: #1b4986;
-                color: white;
-                font-size: 14px;
-                cursor: pointer;
-                box-shadow: 0 6px 18px rgba(0,0,0,.3);
-                z-index: 9999;
-                transition: all 0.3s ease;
+            background: #1b4986;
+        }
+
+        @media (max-width: 576px) { 
+            #btnUp {
+                right: 20rem;
             }
+        }
 
         :root {
             --primary-blue: #122C4F;
@@ -1704,169 +1664,216 @@
 
            
         </script>
+        <script>
 
-    <script>
-
-    // SLIDER DESLIZABLE AUTOMÁTICO - CORREGIDO
-    document.addEventListener('DOMContentLoaded', function() {
-        const track = document.getElementById('sliderTrack');
-        const slides = document.querySelectorAll('.slider-slide');
-        const prevBtn = document.getElementById('sliderPrev');
-        const nextBtn = document.getElementById('sliderNext');
-        const dotsContainer = document.getElementById('sliderDots');
-        
-        // Verificar que existen los elementos
-        if (!track || !slides.length || !prevBtn || !nextBtn || !dotsContainer) {
-            console.error('No se encontraron los elementos del slider');
-            return;
-        }
-        
-        let currentSlide = 0;
-        const totalSlides = slides.length;
-        let autoplayInterval;
-        let isTransitioning = false;
-
-        // Crear indicadores (dots)
-        function createDots() {
-            dotsContainer.innerHTML = ''; // Limpiar dots existentes
-            for (let i = 0; i < totalSlides; i++) {
-                const dot = document.createElement('div');
-                dot.className = 'slider-dot';
-                if (i === 0) dot.classList.add('active');
-                dot.addEventListener('click', () => goToSlide(i));
-                dotsContainer.appendChild(dot);
+        // SLIDER DESLIZABLE AUTOMÁTICO - CORREGIDO
+        document.addEventListener('DOMContentLoaded', function() {
+            const track = document.getElementById('sliderTrack');
+            const slides = document.querySelectorAll('.slider-slide');
+            const prevBtn = document.getElementById('sliderPrev');
+            const nextBtn = document.getElementById('sliderNext');
+            const dotsContainer = document.getElementById('sliderDots');
+            
+            // Verificar que existen los elementos
+            if (!track || !slides.length || !prevBtn || !nextBtn || !dotsContainer) {
+                console.error('No se encontraron los elementos del slider');
+                return;
             }
-        }
-
-        // Ir a un slide específico
-        function goToSlide(index) {
-            if (isTransitioning) return;
             
-            isTransitioning = true;
-            currentSlide = index;
-            
-            // CÁLCULO CORRECTO: 100% por cada slide
-            const offset = -currentSlide * 100;
-            track.style.transform = `translateX(${offset}%)`;
-            
-            // Actualizar dots
-            updateDots();
-            
-            // Resetear autoplay
-            resetAutoplay();
-            
-            setTimeout(() => {
-                isTransitioning = false;
-            }, 600);
-        }
+            let currentSlide = 0;
+            const totalSlides = slides.length;
+            let autoplayInterval;
+            let isTransitioning = false;
 
-        // Actualizar indicadores activos
-        function updateDots() {
-            const dots = document.querySelectorAll('.slider-dot');
-            dots.forEach((dot, index) => {
-                if (index === currentSlide) {
-                    dot.classList.add('active');
-                } else {
-                    dot.classList.remove('active');
-                }
-            });
-        }
-
-        // Slide anterior
-        function prevSlide() {
-            const newIndex = currentSlide === 0 ? totalSlides - 1 : currentSlide - 1;
-            goToSlide(newIndex);
-        }
-
-        // Slide siguiente
-        function nextSlide() {
-            const newIndex = currentSlide === totalSlides - 1 ? 0 : currentSlide + 1;
-            goToSlide(newIndex);
-        }
-
-        // Autoplay
-        function startAutoplay() {
-            autoplayInterval = setInterval(() => {
-                nextSlide();
-            }, 5000); // Cambiar cada 5 segundos
-        }
-
-        function stopAutoplay() {
-            clearInterval(autoplayInterval);
-        }
-
-        function resetAutoplay() {
-            stopAutoplay();
-            startAutoplay();
-        }
-
-        // Event Listeners para botones
-        prevBtn.addEventListener('click', prevSlide);
-        nextBtn.addEventListener('click', nextSlide);
-
-        // Pausar al pasar el mouse
-        track.addEventListener('mouseenter', stopAutoplay);
-        track.addEventListener('mouseleave', startAutoplay);
-
-        // Soporte táctil (swipe)
-        let touchStartX = 0;
-        let touchEndX = 0;
-
-        track.addEventListener('touchstart', (e) => {
-            touchStartX = e.changedTouches[0].screenX;
-            stopAutoplay();
-        }, { passive: true });
-
-        track.addEventListener('touchend', (e) => {
-            touchEndX = e.changedTouches[0].screenX;
-            handleSwipe();
-            startAutoplay();
-        }, { passive: true });
-
-        function handleSwipe() {
-            const swipeThreshold = 50;
-            const diff = touchStartX - touchEndX;
-
-            if (Math.abs(diff) > swipeThreshold) {
-                if (diff > 0) {
-                    nextSlide(); // Swipe left
-                } else {
-                    prevSlide(); // Swipe right
+            // Crear indicadores (dots)
+            function createDots() {
+                dotsContainer.innerHTML = ''; // Limpiar dots existentes
+                for (let i = 0; i < totalSlides; i++) {
+                    const dot = document.createElement('div');
+                    dot.className = 'slider-dot';
+                    if (i === 0) dot.classList.add('active');
+                    dot.addEventListener('click', () => goToSlide(i));
+                    dotsContainer.appendChild(dot);
                 }
             }
-        }
 
-        // Navegación con teclado
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'ArrowLeft') {
-                prevSlide();
-            } else if (e.key === 'ArrowRight') {
-                nextSlide();
-            }
-        });
-
-        // Reajustar en cambio de orientación o resize
-        let resizeTimer;
-        window.addEventListener('resize', () => {
-            clearTimeout(resizeTimer);
-            resizeTimer = setTimeout(() => {
-                // Reposicionar al slide actual sin animación
-                track.style.transition = 'none';
+            // Ir a un slide específico
+            function goToSlide(index) {
+                if (isTransitioning) return;
+                
+                isTransitioning = true;
+                currentSlide = index;
+                
+                // CÁLCULO CORRECTO: 100% por cada slide
                 const offset = -currentSlide * 100;
                 track.style.transform = `translateX(${offset}%)`;
                 
-                // Restaurar transición después de un frame
-                requestAnimationFrame(() => {
-                    track.style.transition = 'transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+                // Actualizar dots
+                updateDots();
+                
+                // Resetear autoplay
+                resetAutoplay();
+                
+                setTimeout(() => {
+                    isTransitioning = false;
+                }, 600);
+            }
+
+            // Actualizar indicadores activos
+            function updateDots() {
+                const dots = document.querySelectorAll('.slider-dot');
+                dots.forEach((dot, index) => {
+                    if (index === currentSlide) {
+                        dot.classList.add('active');
+                    } else {
+                        dot.classList.remove('active');
+                    }
                 });
-            }, 250);
+            }
+
+            // Slide anterior
+            function prevSlide() {
+                const newIndex = currentSlide === 0 ? totalSlides - 1 : currentSlide - 1;
+                goToSlide(newIndex);
+            }
+
+            // Slide siguiente
+            function nextSlide() {
+                const newIndex = currentSlide === totalSlides - 1 ? 0 : currentSlide + 1;
+                goToSlide(newIndex);
+            }
+
+            // Autoplay
+            function startAutoplay() {
+                autoplayInterval = setInterval(() => {
+                    nextSlide();
+                }, 5000); // Cambiar cada 5 segundos
+            }
+
+            function stopAutoplay() {
+                clearInterval(autoplayInterval);
+            }
+
+            function resetAutoplay() {
+                stopAutoplay();
+                startAutoplay();
+            }
+
+            // Event Listeners para botones
+            prevBtn.addEventListener('click', prevSlide);
+            nextBtn.addEventListener('click', nextSlide);
+
+            // Pausar al pasar el mouse
+            track.addEventListener('mouseenter', stopAutoplay);
+            track.addEventListener('mouseleave', startAutoplay);
+
+            // Soporte táctil (swipe)
+            let touchStartX = 0;
+            let touchEndX = 0;
+
+            track.addEventListener('touchstart', (e) => {
+                touchStartX = e.changedTouches[0].screenX;
+                stopAutoplay();
+            }, { passive: true });
+
+            track.addEventListener('touchend', (e) => {
+                touchEndX = e.changedTouches[0].screenX;
+                handleSwipe();
+                startAutoplay();
+            }, { passive: true });
+
+            function handleSwipe() {
+                const swipeThreshold = 50;
+                const diff = touchStartX - touchEndX;
+
+                if (Math.abs(diff) > swipeThreshold) {
+                    if (diff > 0) {
+                        nextSlide(); // Swipe left
+                    } else {
+                        prevSlide(); // Swipe right
+                    }
+                }
+            }
+
+            // Navegación con teclado
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'ArrowLeft') {
+                    prevSlide();
+                } else if (e.key === 'ArrowRight') {
+                    nextSlide();
+                }
+            });
+
+            // Reajustar en cambio de orientación o resize
+            let resizeTimer;
+            window.addEventListener('resize', () => {
+                clearTimeout(resizeTimer);
+                resizeTimer = setTimeout(() => {
+                    // Reposicionar al slide actual sin animación
+                    track.style.transition = 'none';
+                    const offset = -currentSlide * 100;
+                    track.style.transform = `translateX(${offset}%)`;
+                    
+                    // Restaurar transición después de un frame
+                    requestAnimationFrame(() => {
+                        track.style.transition = 'transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+                    });
+                }, 250);
+            });
+
+            // Inicializar
+            createDots();
+            startAutoplay();
+
+            console.log('Slider inicializado correctamente');
         });
-
-        // Inicializar
-        createDots();
-        startAutoplay();
-
-        console.log('Slider inicializado correctamente');
+        </script>
+        <script>
+    // Mostrar/Ocultar botón "Subir" según scroll y proximidad al footer
+    document.addEventListener('DOMContentLoaded', function() {
+        const btnUp = document.getElementById('btnUp');
+        const footer = document.querySelector('footer');
+        
+        if (!btnUp || !footer) return;
+        
+        // Inicialmente oculto
+        btnUp.style.opacity = '0';
+        btnUp.style.pointerEvents = 'none';
+        
+        window.addEventListener('scroll', function() {
+            const scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
+            const footerPosition = footer.offsetTop;
+            const windowHeight = window.innerHeight;
+            const documentHeight = document.documentElement.scrollHeight;
+            
+            // Mostrar botón si se ha hecho scroll hacia abajo (más de 300px)
+            if (scrollPosition > 300) {
+                // Verificar si el usuario está cerca del footer
+                const distanceToFooter = footerPosition - (scrollPosition + windowHeight);
+                
+                // Ocultar si está a menos de 100px del footer o si llegó al final
+                if (distanceToFooter < 100 || (scrollPosition + windowHeight) >= documentHeight - 50) {
+                    btnUp.style.opacity = '0';
+                    btnUp.style.pointerEvents = 'none';
+                } else {
+                    btnUp.style.opacity = '1';
+                    btnUp.style.pointerEvents = 'auto';
+                }
+            } else {
+                // Ocultar si está en la parte superior
+                btnUp.style.opacity = '0';
+                btnUp.style.pointerEvents = 'none';
+            }
+        });
+        
+        // Smooth scroll al hacer clic
+        btnUp.addEventListener('click', function(e) {
+            e.preventDefault();
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
     });
     </script>
 </body>
