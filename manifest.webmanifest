@@ -1,6 +1,6 @@
 {
-  "name": "Gadget Go",
-  "short_name": "GadgetGo",
+  "name": "Gadget Go!",
+  "short_name": "Gadget Go!",
   "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#122C4F",
