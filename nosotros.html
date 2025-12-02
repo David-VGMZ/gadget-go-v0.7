@@ -21,73 +21,33 @@
         box-shadow: 0 6px 18px rgba(0,0,0,.2); z-index: 9999;
         }
 
-            #btnUp {
-                position: fixed;
-                right: 90rem;
-                bottom: 16px;
-                padding: 8px 8px;
-                border: 0;
-                border-radius: 10px;
-                background: #2d5d9b;
-                color: white;
-                font-size: 14px;
-                cursor: pointer;
-                box-shadow: 0 6px 18px rgba(0,0,0,.3);
-                z-index: 9999;
-                transition: all 0.3s ease;
-            }
-
-        @media (max-width: 576px) { 
-            #btnUp {
-                    position: fixed;
-                    right: 90rem;
-                    bottom: 16px;
-                    padding: 8px 8px;
-                    border: 0;
-                    border-radius: 10px;
-                    background: #2d5d9b;
-                    color: white;
-                    font-size: 14px;
-                    cursor: pointer;
-                    box-shadow: 0 6px 18px rgba(0,0,0,.3);
-                    z-index: 9999;
-                    transition: all 0.3s ease;
-                }
-            }
-
-        @media (max-width: 576px) { 
-            #btnUp:hover {
-                position: fixed;
-                right: 320px;
-                bottom: 16px;
-                padding: 8px 8px;
-                border: 0;
-                border-radius: 10px;
-                background: #1b4986;
-                color: white;
-                font-size: 14px;
-                cursor: pointer;
-                box-shadow: 0 6px 18px rgba(0,0,0,.3);
-                z-index: 9999;
-                transition: all 0.3s ease;
-            }
+        #btnUp {
+            position: fixed;
+            right: 90rem;
+            bottom: 16px;
+            padding: 8px 8px;
+            border: 0;
+            border-radius: 20px;
+            background: #2d5d9b;
+            color: white;
+            font-size: 14px;
+            cursor: pointer;
+            box-shadow: 0 6px 18px rgba(0,0,0,.3);
+            z-index: 9999;
+            transition: all 0.3s ease;
+            opacity: 0;
+            pointer-events: none;
         }
 
         #btnUp:hover {
-                position: fixed;
-                right: 90rem;
-                bottom: 16px;
-                padding: 8px 8px;
-                border: 0;
-                border-radius: 10px;
-                background: #1b4986;
-                color: white;
-                font-size: 14px;
-                cursor: pointer;
-                box-shadow: 0 6px 18px rgba(0,0,0,.3);
-                z-index: 9999;
-                transition: all 0.3s ease;
+            background: #1b4986;
+        }
+
+        @media (max-width: 576px) { 
+            #btnUp {
+                right: 20rem;
             }
+        }
 
         :root {
             --primary-blue: #122C4F;
@@ -1862,6 +1822,54 @@
         startAutoplay();
 
         console.log('Slider inicializado correctamente');
+    });
+    </script>
+    <script>
+    // Mostrar/Ocultar botón "Subir" según scroll y proximidad al footer
+    document.addEventListener('DOMContentLoaded', function() {
+        const btnUp = document.getElementById('btnUp');
+        const footer = document.querySelector('footer');
+        
+        if (!btnUp || !footer) return;
+        
+        // Inicialmente oculto
+        btnUp.style.opacity = '0';
+        btnUp.style.pointerEvents = 'none';
+        
+        window.addEventListener('scroll', function() {
+            const scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
+            const footerPosition = footer.offsetTop;
+            const windowHeight = window.innerHeight;
+            const documentHeight = document.documentElement.scrollHeight;
+            
+            // Mostrar botón si se ha hecho scroll hacia abajo (más de 300px)
+            if (scrollPosition > 300) {
+                // Verificar si el usuario está cerca del footer
+                const distanceToFooter = footerPosition - (scrollPosition + windowHeight);
+                
+                // Ocultar si está a menos de 100px del footer o si llegó al final
+                if (distanceToFooter < 100 || (scrollPosition + windowHeight) >= documentHeight - 50) {
+                    btnUp.style.opacity = '0';
+                    btnUp.style.pointerEvents = 'none';
+                } else {
+                    btnUp.style.opacity = '1';
+                    btnUp.style.pointerEvents = 'auto';
+                }
+            } else {
+                // Ocultar si está en la parte superior
+                btnUp.style.opacity = '0';
+                btnUp.style.pointerEvents = 'none';
+            }
+        });
+        
+        // Smooth scroll al hacer clic
+        btnUp.addEventListener('click', function(e) {
+            e.preventDefault();
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
     });
     </script>
 </body>
