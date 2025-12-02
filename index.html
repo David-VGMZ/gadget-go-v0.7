@@ -47,72 +47,62 @@
             transition: all 0.3s ease;
         }
 
-            #btnUp {
-                position: fixed;
-                right: 90rem;
-                bottom: 16px;
-                padding: 8px 8px;
-                border: 0;
-                border-radius: 20px;
-                background: #2d5d9b;
-                color: white;
-                font-size: 14px;
-                cursor: pointer;
-                box-shadow: 0 6px 18px rgba(0,0,0,.3);
-                z-index: 9999;
-                transition: all 0.3s ease;
-            }
+        /* Botón Subir - Base */
+        #btnUp {
+            position: fixed;
+            bottom: 16px;
+            padding: 12px 12px;
+            border: 0;
+            border-radius: 50%;
+            background: #2d5d9b;
+            color: white;
+            font-size: 18px;
+            cursor: pointer;
+            box-shadow: 0 6px 18px rgba(0,0,0,.3);
+            z-index: 9999;
+            display: none;
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0; /* Inicialmente oculto */
+            pointer-events: none; /* Deshabilitado inicialmente */
+            transition: all 0.3s ease, opacity 0.3s ease; /* Añadir transición de opacidad */
+        }
 
-            #btnUp:hover {
-                position: fixed;
-                right: 90rem;
-                bottom: 16px;
-                padding: 8px 8px;
-                border: 0;
-                border-radius: 20px;
-                background: #1b4986;
-                color: white;
-                font-size: 14px;
-                cursor: pointer;
-                box-shadow: 0 6px 18px rgba(0,0,0,.3);
-                z-index: 9999;
-                transition: all 0.3s ease;
-            }
-
+        /* Posición en móvil */
         @media (max-width: 576px) { 
             #btnUp {
-                    position: fixed;
-                    right: 20rem;
-                    bottom: 16px;
-                    padding: 8px 8px;
-                    border: 0;
-                    border-radius: 20px;
-                    background: #2d5d9b;
-                    color: white;
-                    font-size: 14px;
-                    cursor: pointer;
-                    box-shadow: 0 6px 18px rgba(0,0,0,.3);
-                    z-index: 9999;
-                    transition: all 0.3s ease;
-                }
+                right: 340px;
+                left: auto;
             }
+        }
 
-        @media (max-width: 576px) { 
-            #btnUp:hover {
-                position: fixed;
-                right: 320px;
-                bottom: 16px;
-                padding: 8px 8px;
-                border: 0;
-                border-radius: 10px;
-                background: #1b4986;
-                color: white;
-                font-size: 14px;
-                cursor: pointer;
-                box-shadow: 0 6px 18px rgba(0,0,0,.3);
-                z-index: 9999;
-                transition: all 0.3s ease;
+        /* Posición en tablet */
+        @media (min-width: 577px) and (max-width: 991px) {
+            #btnUp {
+                right: 680px;
+                left: auto;
             }
+        }
+
+        /* Posición en desktop */
+        @media (min-width: 992px) {
+            #btnUp {
+                left: 20px;
+                right: auto;
+            }
+        }
+
+        /* Hover effect */
+        #btnUp:hover {
+            background: #1b4986;
+            transform: translateY(-3px) scale(1.05);
+        }
+
+        #btnUp:active {
+            transform: translateY(-1px) scale(0.98);
         }
 
         :root {
@@ -846,6 +836,114 @@
             }
         }
 
+        /* Animación zoom */
+        body {
+            animation: zoomIn 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        @keyframes zoomIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        body.zoom-out {
+            animation: zoomOut 0.3s cubic-bezier(0.55, 0.085, 0.68, 0.53) forwards;
+        }
+
+        @keyframes zoomOut {
+            from {
+                opacity: 1;
+                transform: scale(1);
+            }
+            to {
+                opacity: 0;
+                transform: scale(1.05);
+            }
+        }
+
+        /* Animación para productos */
+        #productos-container .col-6,
+        #productos-container .col-md-4,
+        #productos-container .col-lg-3 {
+            animation: fadeInUp 0.3s ease-out backwards;
+        }
+
+        #productos-container .col-6:nth-child(1) { animation-delay: 0.1s; }
+        #productos-container .col-6:nth-child(2) { animation-delay: 0.15s; }
+        #productos-container .col-6:nth-child(3) { animation-delay: 0.2s; }
+        #productos-container .col-6:nth-child(4) { animation-delay: 0.25s; }
+        #productos-container .col-6:nth-child(5) { animation-delay: 0.3s; }
+        #productos-container .col-6:nth-child(6) { animation-delay: 0.35s; }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Animación para modales */
+        .modal.fade .modal-dialog {
+            transition: transform 0.2s ease-out, opacity 0.2s ease-out;
+        }
+
+        /* Animación para navbar */
+        .navbar {
+            animation: slideDown 0.5s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        /* Animación para botones */
+        .btn {
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .btn:active {
+            transform: scale(0.95);
+        }
+
+        /* Animación para el carrusel */
+        #heroCarousel,
+        .slider-container {
+            animation: fadeInScale 0.5s ease-out;
+        }
+
+        @keyframes fadeInScale {
+            from {
+                opacity: 0;
+                transform: scale(0.98);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        /* Hover suave para categorías */
+        .categoria-item {
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
     </style>
 </head>
 <body>
@@ -893,43 +991,39 @@
     </nav>
     <!--Inicio-->
     <header id="inicio" class=" pt-5 pb-0">
-    <!-- <div class="container mb-1 pt-5 mt-3">   
-            <input type="text" id="busquedaInput" class="form-control form-control-lg" placeholder="Buscar productos..." oninput="buscarProductos()">
-        </div>
-        -->
         <div class="my-2 py-3 pt-5 mt-3">
-        <!-- Slider Deslizable -->
-        <div class="slider-container">
-            <div class="slider-wrapper" id="sliderWrapper">
-                <div class="slider-track" id="sliderTrack">
-                    <!-- Slide 1 -->
-                    <div class="slider-slide">
-                        <img class="slider-img" src="./img/banner1.png" alt="Banner 1">
-                    </div>
-                    
-                    <!-- Slide 2 -->
-                    <div class="slider-slide">
-                        <img src="./img/banner2.png" alt="Banner 2">
-                    </div>
-                    
-                    <!-- Slide 3 -->
-                    <div class="slider-slide">
-                        <img src="./img/banner3.png" alt="Banner 3">
+            <!-- Slider Deslizable -->
+            <div class="slider-container">
+                <div class="slider-wrapper" id="sliderWrapper">
+                    <div class="slider-track" id="sliderTrack">
+                        <!-- Slide 1 -->
+                        <div class="slider-slide">
+                            <img class="slider-img" src="./img/banner1.png" alt="Banner 1">
+                        </div>
+                        
+                        <!-- Slide 2 -->
+                        <div class="slider-slide">
+                            <img src="./img/banner2.png" alt="Banner 2">
+                        </div>
+                        
+                        <!-- Slide 3 -->
+                        <div class="slider-slide">
+                            <img src="./img/banner3.png" alt="Banner 3">
+                        </div>
                     </div>
                 </div>
+                
+                <!-- Controles -->
+                <button class="slider-arrow slider-prev" id="sliderPrev">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <button class="slider-arrow slider-next" id="sliderNext">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+                
+                <!-- Indicadores -->
+                <div class="slider-dots" id="sliderDots"></div>
             </div>
-            
-            <!-- Controles -->
-            <button class="slider-arrow slider-prev" id="sliderPrev">
-                <i class="fas fa-chevron-left"></i>
-            </button>
-            <button class="slider-arrow slider-next" id="sliderNext">
-                <i class="fas fa-chevron-right"></i>
-            </button>
-            
-            <!-- Indicadores -->
-            <div class="slider-dots" id="sliderDots"></div>
-        </div>
         </div>
         <div class="toast-container position-fixed top-0 end-0 p-3" id="toastZone"></div>
     </header>
@@ -1030,6 +1124,7 @@
 
     <section id="productos" class="container my-5 ab-5" style="margin-bottom: 4rem;">
         <div id="productos-container" class="row g-3 mb-3" style="border-radius: 16px;"></div>
+        
     </section>
     
     <!-- Modal Contacto -->
@@ -1434,7 +1529,7 @@
             }
         }
 
-        // ⭐ NUEVA FUNCIÓN: Cargar productos desde IndexedDB
+        // Cargar productos desde IndexedDB
         async function cargarProductosOffline() {
             try {
                 // Esperar a que IndexedDB esté lista
@@ -1452,7 +1547,12 @@
                     console.log('📦 Productos cargados desde IndexedDB:', productosOffline.length);
                     listaGlobal = productosOffline;
                     renderLista(productosOffline);
-                    showToast('📡 Modo offline: mostrando productos guardados', 'warning');
+                    
+                    // SOLO MOSTRAR TOAST SI NO SE HA MOSTRADO ANTES
+                    if (!sessionStorage.getItem('offlineToastShown')) {
+                        showToast('📡 Modo offline: mostrando productos guardados', 'warning');
+                        sessionStorage.setItem('offlineToastShown', 'true');
+                    }
                 } else {
                     productosSection.innerHTML = `
                         <div class="col-12">
@@ -1606,7 +1706,7 @@
 
             // Verificar conexión
             if (!navigator.onLine) {
-                console.log('📡 Sin conexión, filtrando desde IndexedDB...');
+                console.log('Sin conexión, filtrando desde IndexedDB...');
                 await filtrarProductosOffline(categoria);
                 return;
             }
@@ -1659,9 +1759,14 @@
                 const productosOffline = await obtenerProductosPorCategoria(categoria);
                 
                 if (productosOffline.length > 0) {
-                    console.log(`📦 ${productosOffline.length} productos de "${categoria}" desde IndexedDB`);
+                    console.log(`${productosOffline.length} productos de "${categoria}" desde IndexedDB`);
                     renderLista(productosOffline);
-                    showToast('📡 Modo offline', 'warning');
+                    
+                    // SOLO MOSTRAR TOAST SI NO SE HA MOSTRADO ANTES
+                    if (!sessionStorage.getItem('offlineToastShown')) {
+                        showToast('📡 Modo offline', 'warning');
+                        sessionStorage.setItem('offlineToastShown', 'true');
+                    }
                 } else {
                     document.getElementById('productos-container').innerHTML = `
                         <div class="col-12">
@@ -1911,6 +2016,9 @@
             async () => {
                 showToast('Conexión restaurada', 'success');
                 
+                // LIMPIAR LA BANDERA AL VOLVER ONLINE
+                sessionStorage.removeItem('offlineToastShown');
+                
                 // Sincronizar pedidos pendientes
                 try {
                     const pedidosPendientes = await obtenerPedidosNoSincronizados();
@@ -1942,7 +2050,11 @@
             },
             // Callback cuando se pierde conexión
             () => {
-                showToast('Sin conexión - Modo offline activado', 'warning');
+                // MOSTRAR TOAST SOLO UNA VEZ AL PERDER CONEXIÓN
+                if (!sessionStorage.getItem('offlineToastShown')) {
+                    showToast('Sin conexión - Modo offline activado', 'warning');
+                    sessionStorage.setItem('offlineToastShown', 'true');
+                }
                 // Intentar cargar productos desde IndexedDB inmediatamente
                 cargarProductos();
             }
@@ -2310,6 +2422,177 @@
 
         let listaGlobal = []; // productos cargados (online u offline)
 
+    </script>
+    <script>
+    // Mostrar/Ocultar botón "Subir" según scroll y proximidad al footer
+    document.addEventListener('DOMContentLoaded', function() {
+        const btnUp = document.getElementById('btnUp');
+        const footer = document.querySelector('footer');
+        
+        if (!btnUp || !footer) return;
+        
+        window.addEventListener('scroll', function() {
+            const scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
+            const footerPosition = footer.offsetTop;
+            const windowHeight = window.innerHeight;
+            const documentHeight = document.documentElement.scrollHeight;
+            
+            // Mostrar botón si se ha hecho scroll hacia abajo (más de 300px)
+            if (scrollPosition > 300) {
+                // Verificar si el usuario está cerca del footer
+                const distanceToFooter = footerPosition - (scrollPosition + windowHeight);
+                
+                // Ocultar si está a menos de 100px del footer o si llegó al final
+                if (distanceToFooter < 100 || (scrollPosition + windowHeight) >= documentHeight - 50) {
+                    btnUp.style.opacity = '0';
+                    btnUp.style.pointerEvents = 'none';
+                } else {
+                    btnUp.style.opacity = '1';
+                    btnUp.style.pointerEvents = 'auto';
+                }
+            } else {
+                // Ocultar si está en la parte superior
+                btnUp.style.opacity = '0';
+                btnUp.style.pointerEvents = 'none';
+            }
+        });
+    });
+    </script>
+    <script>
+
+    // SISTEMA DE TRANSICIONES UNIVERSAL
+    (function() {
+        'use strict';
+        
+        // Prevenir animación en recarga
+        if (performance.navigation.type === 1) {
+            document.body.style.animation = 'none';
+        }
+        
+        // Configuración
+        const config = {
+            animationClass: 'fade-out', // Cambia a 'slide-out' o 'zoom-out' según prefieras
+            duration: 300,
+            ignoreSelectors: [
+                '[data-bs-toggle]',
+                '[href="#"]',
+                '[href*="#modal"]',
+                '[onclick]',
+                '.no-transition'
+            ]
+        };
+        
+        // Función para verificar si debe ignorarse
+        function shouldIgnoreLink(link) {
+            return config.ignoreSelectors.some(selector => {
+                return link.matches(selector) || link.closest(selector);
+            });
+        }
+        
+        // Función de transición
+        function transitionToPage(url) {
+            document.body.classList.add(config.animationClass);
+            setTimeout(() => {
+                window.location.href = url;
+            }, config.duration);
+        }
+        
+        // Inicializar cuando el DOM esté listo
+        document.addEventListener('DOMContentLoaded', function() {
+            // Interceptar todos los enlaces internos
+            document.addEventListener('click', function(e) {
+                const link = e.target.closest('a');
+                
+                if (!link) return;
+                
+                const href = link.getAttribute('href');
+                
+                // Verificar si es un enlace válido
+                if (!href || href.startsWith('http') || href.startsWith('mailto:') || href.startsWith('tel:')) {
+                    return;
+                }
+                
+                // Ignorar ciertos enlaces
+                if (shouldIgnoreLink(link)) {
+                    return;
+                }
+                
+                // Aplicar transición
+                e.preventDefault();
+                transitionToPage(href);
+            });
+            
+            // Agregar clase a cards para hover
+            const cards = document.querySelectorAll('.card');
+            cards.forEach(card => {
+                card.style.cursor = 'pointer';
+            });
+        });
+        
+        // Smooth scroll para anclas
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                const href = this.getAttribute('href');
+                if (href !== '#' && !this.getAttribute('data-bs-toggle')) {
+                    e.preventDefault();
+                    const target = document.querySelector(href);
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                }
+            });
+        });
+    })();
+
+    // RESET AUTOMÁTICO DE MODALES
+    document.addEventListener('DOMContentLoaded', function() {
+        // Obtener todos los modales
+        const modales = document.querySelectorAll('.modal');
+        
+        modales.forEach(modal => {
+            modal.addEventListener('hidden.bs.modal', function () {
+                // Limpiar todos los inputs de texto, email, password, textarea
+                const inputs = this.querySelectorAll('input[type="text"], input[type="email"], input[type="password"], input[type="tel"], textarea');
+                inputs.forEach(input => {
+                    input.value = '';
+                });
+                
+                // Limpiar selects
+                const selects = this.querySelectorAll('select');
+                selects.forEach(select => {
+                    select.selectedIndex = 0;
+                });
+                
+                // Limpiar checkboxes y radios
+                const checkboxes = this.querySelectorAll('input[type="checkbox"], input[type="radio"]');
+                checkboxes.forEach(checkbox => {
+                    checkbox.checked = false;
+                });
+                
+                // Limpiar mensajes de error
+                const errorMessages = this.querySelectorAll('.text-danger, .alert-danger');
+                errorMessages.forEach(msg => {
+                    msg.textContent = '';
+                    msg.style.display = 'none';
+                });
+                
+                // Remover clases de validación de Bootstrap
+                const formControls = this.querySelectorAll('.form-control, .form-select');
+                formControls.forEach(control => {
+                    control.classList.remove('is-valid', 'is-invalid');
+                });
+                
+                // Resetear formularios si existen
+                const forms = this.querySelectorAll('form');
+                forms.forEach(form => {
+                    form.reset();
+                });
+            });
+        });
+    });
     </script>
 </body>
 </html>
