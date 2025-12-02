@@ -170,6 +170,253 @@
         color: #ffc107;
         }
 
+    /* Botón Volver fijo */
+    .btn-volver-static {
+        position: fixed;
+        top: 140px; /* Debajo del navbar */
+        left: 20px;
+        z-index: 1000;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+    }
+
+    .btn-volver-static .btn {
+        transition: all 0.3s ease;
+    }
+
+    .btn-volver-static .btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 10px rgba(18, 44, 79, 0.3);
+    }
+
+    @media (max-width: 768px) {
+        .btn-volver-static {
+            top: 120px;
+            left: 10px;
+        }
+    }
+        /* ==========================================
+        ANIMACIONES DE TRANSICIÓN DE PÁGINA
+        ========================================== */
+
+        /* Animación de entrada */
+        body {
+            animation: zoomIn 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        @keyframes zoomIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        /* Animación de salida */
+        body.fade-out {
+            animation: fadeOut 0.3s ease-out forwards;
+        }
+
+        @keyframes fadeOut {
+            from {
+                opacity: 1;
+            }
+            to {
+                opacity: 0;
+            }
+        }
+
+        body.zoom-out {
+            animation: zoomOut 0.3s cubic-bezier(0.55, 0.085, 0.68, 0.53) forwards;
+        }
+
+        @keyframes zoomOut {
+            from {
+                opacity: 1;
+                transform: scale(1);
+            }
+            to {
+                opacity: 0;
+                transform: scale(1.05);
+            }
+        }
+
+        body.slide-out {
+            animation: slideOut 0.3s ease-in forwards;
+        }
+
+        @keyframes slideOut {
+            from {
+                opacity: 1;
+                transform: translateX(0);
+            }
+            to {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+        }
+
+        /* ==========================================
+        ANIMACIONES DE ELEMENTOS
+        ========================================== */
+
+        /* Animación del card del producto */
+        #producto-container .card {
+            animation: fadeInScale 0.3s ease-out;
+        }
+
+        @keyframes fadeInScale {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        /* Animación de la imagen del producto */
+        #producto-container .card img {
+            animation: fadeIn 0.4s ease-out 0.2s backwards;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Animación del contenido del producto */
+        #producto-container .card .col-md-6:last-child {
+            animation: slideInRight 0.4s ease-out 0.2s backwards;
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* Hover en tarjetas */
+        .card {
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2) !important;
+        }
+
+        /* Animación para modales */
+        .modal.fade .modal-dialog {
+            transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+        }
+
+        /* Animación para botones */
+        .btn {
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .btn:active {
+            transform: scale(0.95);
+        }
+
+        /* Animación del botón volver */
+        .btn-volver-static {
+            animation: slideInLeft 0.4s ease-out;
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* Animación del navbar */
+        .navbar {
+            animation: slideDown 0.5s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        /* Smooth scroll mejorado */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Transición suave en imágenes */
+        img {
+            transition: transform 0.2s ease, opacity 0.2s ease;
+        }
+
+        img:hover {
+            transform: scale(1.02);
+        }
+
+        /* Loading spinner con animación */
+        .spinner-border {
+            animation: spin 0.75s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Animación de entrada para alerts */
+        .alert {
+            animation: slideInDown 0.4s ease-out;
+        }
+
+        @keyframes slideInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Transición para badges */
+        .badge {
+            transition: all 0.3s ease;
+        }
+
+        .badge:hover {
+            transform: scale(1.05);
+        }
+
     </style>
 </head>
 <body>
@@ -203,115 +450,116 @@
         <div class="toast-container position-fixed top-0 end-0 p-3" id="toastZone"></div>
     </header>
 
-    <div class="pt-4 pb-3 mt-4">
-            <a class="ms-3" href="index.html">
-                <button class="btn btn-primary">Volver</button>
-            </a>
-        </div>
+   <!-- Reemplaza tu div del botón por este -->
+    <a href="index.html" class="btn-volver-static">
+        <button class="btn btn-primary">
+            <i class="fas fa-arrow-left me-2"></i>
+        </button>
+    </a>
     
-<script>
-  // Recuperar carrito o inicializarlo vacío
-  let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+    <script>
+    // Recuperar carrito o inicializarlo vacío
+    let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
 
-  function guardarCarrito() {
-    localStorage.setItem('carrito', JSON.stringify(carrito));
+    function guardarCarrito() {
+        localStorage.setItem('carrito', JSON.stringify(carrito));
+        }
+
+    function agregarAlCarrito(producto) {
+        const item = carrito.find(p => p.id === producto.id);
+        if (item) {
+        item.cantidad++;
+        } else {
+        carrito.push(producto);
+        }
+        guardarCarrito();
+        actualizarCarrito();
+
+        showToast('<i class="fa-solid fa-cart-plus me-2"></i> Producto agregado al carrito', "primary");
+
+        }
+
+    function eliminarDelCarrito(id) {
+        carrito = carrito.filter(p => String(p.id) !== String(id));
+        guardarCarrito();
+        actualizarCarrito();
+        const alert = document.createElement('div');
+        showToast('<i class="fa-solid fa-cart-plus me-2"></i> Producto eliminado del carrito', "danger");
+        alert.className = "alert alert-danger position-fixed top-0 end-0 m-3";
+        alert.textContent = "Producto eliminado del carrito";
+        document.body.appendChild(alert);
+        }
+
+
+    function vaciarCarrito() {
+        carrito = [];
+        guardarCarrito();
+        actualizarCarrito();
     }
 
-  function agregarAlCarrito(producto) {
-    const item = carrito.find(p => p.id === producto.id);
-    if (item) {
-      item.cantidad++;
-    } else {
-      carrito.push(producto);
-    }
-    guardarCarrito();
-    actualizarCarrito();
+    // Actualizar vista del carrito en el modal y contador
+    function actualizarCarrito() {
+        const contenedor = document.getElementById('carrito-container');
+        const contador = document.getElementById('contador-carrito');
+        contador.textContent = carrito.reduce((acc, p) => acc + p.cantidad, 0);
 
-    showToast('<i class="fa-solid fa-cart-plus me-2"></i> Producto agregado al carrito', "primary");
+        // Escuchar cuando se abre el modal del carrito
+        const carritoModal = document.getElementById('carritoModal');
+        if (carritoModal) {
+            carritoModal.addEventListener('shown.bs.modal', function () {
 
-    }
+                    actualizarCarrito();
+            });
+        }
 
-  function eliminarDelCarrito(id) {
-    carrito = carrito.filter(p => String(p.id) !== String(id));
-    guardarCarrito();
-    actualizarCarrito();
-    const alert = document.createElement('div');
-    showToast('<i class="fa-solid fa-cart-plus me-2"></i> Producto eliminado del carrito', "danger");
-    alert.className = "alert alert-danger position-fixed top-0 end-0 m-3";
-    alert.textContent = "Producto eliminado del carrito";
-    document.body.appendChild(alert);
-    }
+        if (carrito.length === 0) {
+        contenedor.innerHTML = '<p class="text-center text-muted">Tu carrito está vacío</p>';
+        return;
+        }
 
-
-  function vaciarCarrito() {
-    carrito = [];
-    guardarCarrito();
-    actualizarCarrito();
-  }
-
- // Actualizar vista del carrito en el modal y contador
-  function actualizarCarrito() {
-    const contenedor = document.getElementById('carrito-container');
-    const contador = document.getElementById('contador-carrito');
-    contador.textContent = carrito.reduce((acc, p) => acc + p.cantidad, 0);
-
-    // Escuchar cuando se abre el modal del carrito
-    const carritoModal = document.getElementById('carritoModal');
-    if (carritoModal) {
-        carritoModal.addEventListener('shown.bs.modal', function () {
-
-                actualizarCarrito();
-        });
-    }
-
-    if (carrito.length === 0) {
-      contenedor.innerHTML = '<p class="text-center text-muted">Tu carrito está vacío</p>';
-      return;
-    }
-
-    contenedor.innerHTML = carrito.map(p => `
-      <div class="producto border rounded p-2 my-2 d-flex align-items-center justify-content-between">
-        <div class="d-flex align-items-center">
-          <img src="${p.imagen}" width="80" class="me-3 rounded">
-          <div> 
-            <h5 class="mb-1">${p.nombre}</h5>
-            <p class="mb-0">$${p.precio} x ${p.cantidad}</p>
-          </div>
-        </div>
-        <button class="btn btn-danger btn-sm" onclick="eliminarDelCarrito('${p.id}')">X</button>
-      </div>
-    `).join('');
-  }
-
-  // Mostrar carrito al cargar la página
-  document.addEventListener('DOMContentLoaded', actualizarCarrito);
-
-  function showToast(msg, type = "success") {
-        const container = document.getElementById("toastZone");
-
-        const toastEl = document.createElement("div");
-        toastEl.className = `toast align-items-center text-bg-${type} border-0`;
-        toastEl.setAttribute("role", "alert");
-        toastEl.setAttribute("aria-live", "assertive");
-        toastEl.setAttribute("aria-atomic", "true");
-
-        toastEl.innerHTML = `
-            <div class="d-flex">
-                <div class="toast-body">${msg}</div>
-                <button type="button" class="btn-close btn-close-white me-2 m-auto"
-                    data-bs-dismiss="toast" aria-label="Close"></button>
+        contenedor.innerHTML = carrito.map(p => `
+        <div class="producto border rounded p-2 my-2 d-flex align-items-center justify-content-between">
+            <div class="d-flex align-items-center">
+            <img src="${p.imagen}" width="80" class="me-3 rounded">
+            <div> 
+                <h5 class="mb-1">${p.nombre}</h5>
+                <p class="mb-0">$${p.precio} x ${p.cantidad}</p>
             </div>
-        `;
-
-        container.appendChild(toastEl);
-
-        const toast = new bootstrap.Toast(toastEl);
-        toast.show();
-
-        // remover después de 4 segundos
-        setTimeout(() => toastEl.remove(), 4000);
+            </div>
+            <button class="btn btn-danger btn-sm" onclick="eliminarDelCarrito('${p.id}')">X</button>
+        </div>
+        `).join('');
     }
-</script>
+
+    // Mostrar carrito al cargar la página
+    document.addEventListener('DOMContentLoaded', actualizarCarrito);
+
+    function showToast(msg, type = "success") {
+            const container = document.getElementById("toastZone");
+
+            const toastEl = document.createElement("div");
+            toastEl.className = `toast align-items-center text-bg-${type} border-0`;
+            toastEl.setAttribute("role", "alert");
+            toastEl.setAttribute("aria-live", "assertive");
+            toastEl.setAttribute("aria-atomic", "true");
+
+            toastEl.innerHTML = `
+                <div class="d-flex">
+                    <div class="toast-body">${msg}</div>
+                    <button type="button" class="btn-close btn-close-white me-2 m-auto"
+                        data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+            `;
+
+            container.appendChild(toastEl);
+
+            const toast = new bootstrap.Toast(toastEl);
+            toast.show();
+
+            // remover después de 4 segundos
+            setTimeout(() => toastEl.remove(), 4000);
+        }
+    </script>
 
     <section id="productos" class="container my-3">
         <div class="container" id="producto-container">
@@ -456,16 +704,14 @@
             </div>
         </div>
     </div>
-    <!--Footer-->
-    <footer class="text-center text-white py-3" style="background-color: #122C4F;">
-        <p>&copy; 2025 Gadget Go- Todos los derechos reservados</p>
-    </footer>
-    <!-- REEMPLAZA TODO EL <script> al final del body por este -->
+
+    <script src="./db.js"></script>
+
     <script type="module">
         import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js';
         import { getFirestore, doc, getDoc, collection, addDoc, serverTimestamp } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js';
 
-        // ✅ TU CONFIGURACIÓN DE FIREBASE
+        // CONFIGURACIÓN DE FIREBASE
         const firebaseConfig = {
             apiKey: "AIzaSyBg9o3wVZoA26Aob2RnbVPV8vGv4GE44gs",
             authDomain: "primer-proyecto-7b2f4.firebaseapp.com",
@@ -478,15 +724,30 @@
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
-        // FUNCIÓN PARA CARGAR EL PRODUCTO
-        async function cargarProducto() {
-            // OBTENER ID DEL HASH (#) en lugar de query params (?)
-            const hash = window.location.hash;
-            const id = hash ? hash.substring(1) : null; // Quitar el #
+        // ====================================
+        // INICIALIZAR IndexedDB
+        // ====================================
+        let dbReady = false;
 
-            console.log("URL completa:", window.location.href);
-            console.log("Hash:", hash);
-            console.log("ID extraído:", id);
+        (async function inicializarDB() {
+            try {
+                await initDB();
+                dbReady = true;
+                console.log('✅ IndexedDB lista para usar en producto.html');
+            } catch (error) {
+                console.error('❌ Error inicializando IndexedDB:', error);
+                dbReady = false;
+            }
+        })();
+
+        // ====================================
+        // FUNCIÓN PARA CARGAR EL PRODUCTO (CON SOPORTE OFFLINE)
+        // ====================================
+        async function cargarProducto() {
+            const hash = window.location.hash;
+            const id = hash ? hash.substring(1) : null;
+
+            console.log("ID del producto:", id);
 
             const cont = document.getElementById("producto-container");
 
@@ -494,68 +755,159 @@
                 cont.innerHTML = `
                     <div class="alert alert-danger">
                         <h4>No se especificó un producto</h4>
-                        <p>URL: ${window.location.href}</p>
-                        <p>Hash: ${hash}</p>
+                        <p>Por favor, selecciona un producto desde la página principal.</p>
+                        <a href="index.html" class="btn btn-primary mt-2">Volver al inicio</a>
                     </div>
                 `;
                 return;
             }
 
+            // Mostrar loader
+            cont.innerHTML = `
+                <div class="text-center py-5">
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden">Cargando...</span>
+                    </div>
+                    <p class="mt-3">Cargando producto...</p>
+                </div>
+            `;
+
+            // ⭐ VERIFICAR CONEXIÓN PRIMERO
+            if (!navigator.onLine) {
+                console.log('📡 Sin conexión, cargando desde IndexedDB...');
+                await cargarProductoOffline(id);
+                return;
+            }
+
             try {
-                // Obtener producto de Firestore
+                // Intentar cargar desde Firebase
                 const docRef = doc(db, "productos", id);
                 const docSnap = await getDoc(docRef);
 
                 if (!docSnap.exists()) {
-                    cont.innerHTML = `<p class="text-center text-danger">Producto no encontrado</p>`;
+                    // Si no existe en Firebase, intentar desde IndexedDB
+                    console.log('Producto no encontrado en Firebase, intentando IndexedDB...');
+                    await cargarProductoOffline(id);
                     return;
                 }
 
                 const prod = { id: docSnap.id, ...docSnap.data() };
-
-                // Manejo de imágenes
-                let imgSrc = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjQwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCBmaWxsPSIjZTVlN2ViIiB3aWR0aD0iNDAwIiBoZWlnaHQ9IjQwMCIvPjx0ZXh0IGZpbGw9IiM5Y2EzYWYiIGZvbnQtZmFtaWx5PSJzYW5zLXNlcmlmIiBmb250LXNpemU9IjI0IiB4PSI1MCUiIHk9IjUwJSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZG9taW5hbnQtYmFzZWxpbmU9Im1pZGRsZSI+U2luIEltYWdlbjwvdGV4dD48L3N2Zz4=';
-
-                if (Array.isArray(prod.imagenes) && prod.imagenes.length > 0) {
-                    const primeraImagen = prod.imagenes[0];
-                    
-                    if (typeof primeraImagen === 'string' && primeraImagen.trim() !== '') {
-                        imgSrc = primeraImagen;
-                    } else if (typeof primeraImagen === 'object' && primeraImagen.dataURL) {
-                        imgSrc = primeraImagen.dataURL;
+                
+                // ⭐ GUARDAR EN IndexedDB PARA USO OFFLINE
+                if (dbReady) {
+                    try {
+                        await guardarProductoOffline(prod);
+                        console.log('💾 Producto guardado en IndexedDB');
+                    } catch (err) {
+                        console.warn('No se pudo guardar en IndexedDB:', err);
                     }
                 }
 
-                // Renderizar producto
-                cont.innerHTML = `
-                    <div class="card shadow p-5 ">
-                        <div class="row">
-                            <div class="col-md-6 text-center">
-                                <img src="${imgSrc}" class="img-fluid rounded" alt="${prod.nombre}" style="max-height: 500px; object-fit: cover;">
-                            </div>
-                            <div class="col-md-6 py-2">
-                                <h2>${prod.nombre}</h2>
-                                <h4 class="text-success mb-3" style="font-size: 2rem;"><strong>$${Number(prod.precio).toLocaleString('es-MX', { minimumFractionDigits: 2 })}</strong></h4>
-                                
-                                <div class="mb-3">
-                                    <p class="mb-1"><strong>Modelo:</strong> ${prod.modelo || 'N/A'}</p>
-                                    <p class="mb-1"><strong>Estado:</strong> <span class="badge bg-info">${prod.estado || 'N/A'}</span></p>
-                                    <p class="mb-1"> ${prod.stock || '0'} unidades</p>
-                                </div>
+                renderizarProducto(prod);
 
-                                <h5>Caracteristicas:</h5>
-                                <p>${prod.descripcion || "Sin descripción"}</p>
-                                
-                                <button class="btn btn-primary w-100 mt-3" id="btnAgregar">
-                                    <i class="fas fa-cart-plus me-2"></i>Agregar al carrito
-                                </button>
-                            </div>
+            } catch (error) {
+                console.error("Error cargando producto desde Firebase:", error);
+                
+                // ⭐ FALLBACK A IndexedDB
+                console.log('📦 Intentando cargar desde IndexedDB...');
+                await cargarProductoOffline(id);
+            }
+        }
+
+        // ====================================
+        // CARGAR PRODUCTO DESDE IndexedDB
+        // ====================================
+        async function cargarProductoOffline(id) {
+            const cont = document.getElementById("producto-container");
+            
+            try {
+                // Esperar a que IndexedDB esté lista
+                if (!dbReady) {
+                    await initDB();
+                    dbReady = true;
+                }
+
+                const producto = await obtenerProductoPorId(id);
+
+                if (producto) {
+                    console.log('📦 Producto cargado desde IndexedDB');
+                    renderizarProducto(producto);
+                    showToast('📡 Modo offline: producto cargado desde caché', 'warning');
+                } else {
+                    cont.innerHTML = `
+                        <div class="alert alert-warning text-center my-5">
+                            <i class="fas fa-wifi-slash fa-3x mb-3"></i>
+                            <h5>Sin conexión</h5>
+                            <p>Este producto no está disponible offline.</p>
+                            <p>Conéctate a internet para verlo.</p>
+                            <a href="index.html" class="btn btn-primary mt-3">Volver al catálogo</a>
                         </div>
+                    `;
+                }
+            } catch (error) {
+                console.error('Error cargando producto offline:', error);
+                cont.innerHTML = `
+                    <div class="alert alert-danger text-center my-5">
+                        <i class="fas fa-exclamation-triangle fa-3x mb-3"></i>
+                        <h5>Error</h5>
+                        <p>No se pudo cargar el producto</p>
+                        <a href="index.html" class="btn btn-primary mt-3">Volver al catálogo</a>
                     </div>
                 `;
+            }
+        }
 
-                // Event listener para agregar al carrito
-                document.getElementById('btnAgregar').addEventListener('click', () => {
+        // ====================================
+        // RENDERIZAR PRODUCTO
+        // ====================================
+        function renderizarProducto(prod) {
+            const cont = document.getElementById("producto-container");
+
+            // Manejo de imágenes
+            let imgSrc = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjQwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCBmaWxsPSIjZTVlN2ViIiB3aWR0aD0iNDAwIiBoZWlnaHQ9IjQwMCIvPjx0ZXh0IGZpbGw9IiM5Y2EzYWYiIGZvbnQtZmFtaWx5PSJzYW5zLXNlcmlmIiBmb250LXNpemU9IjI0IiB4PSI1MCUiIHk9IjUwJSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZG9taW5hbnQtYmFzZWxpbmU9Im1pZGRsZSI+U2luIEltYWdlbjwvdGV4dD48L3N2Zz4=';
+
+            if (Array.isArray(prod.imagenes) && prod.imagenes.length > 0) {
+                const primeraImagen = prod.imagenes[0];
+                
+                if (typeof primeraImagen === 'string' && primeraImagen.trim() !== '') {
+                    imgSrc = primeraImagen;
+                } else if (typeof primeraImagen === 'object' && primeraImagen.dataURL) {
+                    imgSrc = primeraImagen.dataURL;
+                }
+            }
+
+            // Renderizar producto
+            cont.innerHTML = `
+                <div class="card shadow p-5">
+                    <div class="row">
+                        <div class="col-md-6 text-center">
+                            <img src="${imgSrc}" class="img-fluid rounded" alt="${prod.nombre}" style="max-height: 500px; object-fit: cover;">
+                        </div>
+                        <div class="col-md-6 py-2">
+                            <h2>${prod.nombre}</h2>
+                            <h4 class="text-success mb-3" style="font-size: 2rem;"><strong>$${Number(prod.precio).toLocaleString('es-MX', { minimumFractionDigits: 2 })}</strong></h4>
+                            
+                            <div class="mb-3">
+                                <p class="mb-1"><strong>Modelo:</strong> ${prod.modelo || 'N/A'}</p>
+                                <p class="mb-1"><strong>Estado:</strong> <span class="badge bg-info">${prod.estado || 'N/A'}</span></p>
+                                <p class="mb-1"><strong>Disponibles:</strong> ${prod.stock || '0'} unidades</p>
+                            </div>
+
+                            <h5>Características:</h5>
+                            <p>${prod.descripcion || "Sin descripción"}</p>
+                            
+                            <button class="btn btn-primary w-100 mt-3" id="btnAgregar">
+                                <i class="fas fa-cart-plus me-2"></i>Agregar al carrito
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            // Event listener para agregar al carrito
+            const btnAgregar = document.getElementById('btnAgregar');
+            if (btnAgregar) {
+                btnAgregar.addEventListener('click', () => {
                     agregarAlCarrito({
                         id: prod.id,
                         nombre: prod.nombre,
@@ -564,20 +916,12 @@
                         imagen: imgSrc
                     });
                 });
-
-            } catch (error) {
-                console.error("Error cargando producto:", error);
-                cont.innerHTML = `<p class="text-center text-danger">Error al cargar el producto: ${error.message}</p>`;
             }
         }
 
-        /* Botón volver
-        document.getElementById('back-button').addEventListener('click', () => {
-            window.history.back();
-        });
-        */
-
+        // ====================================
         // ACTUALIZAR CARRITO
+        // ====================================
         window.actualizarCarrito = function() {
             const contenedor = document.getElementById('carrito-container');
             const contador = document.getElementById('contador-carrito');
@@ -619,7 +963,9 @@
             `).join('');
         }
 
+        // ====================================
         // ABRIR CHECKOUT
+        // ====================================
         window.abrirCheckout = function() {
             const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
             
@@ -633,8 +979,6 @@
                 showToast('Debes iniciar sesión para realizar una compra', 'warning');
                 const carritoModal = bootstrap.Modal.getInstance(document.getElementById('carritoModal'));
                 if (carritoModal) carritoModal.hide();
-                const loginModal = new bootstrap.Modal(document.getElementById('loginModal'));
-                loginModal.show();
                 return;
             }
 
@@ -657,7 +1001,9 @@
             checkoutModal.show();
         }
 
-              // CONFIRMAR PEDIDO
+        // ====================================
+        // CONFIRMAR PEDIDO
+        // ====================================
         function inicializarCheckout() {
             const checkoutForm = document.getElementById('checkoutForm');
             
@@ -700,12 +1046,37 @@
                         codigoPostal: document.getElementById('cpEnvio').value,
                         notas: document.getElementById('notasEnvio').value
                     },
-                    fecha: serverTimestamp()
+                    fecha: new Date().toISOString()
                 };
 
+                // ⭐ VERIFICAR CONEXIÓN
+                if (!navigator.onLine) {
+                    try {
+                        await guardarPedidoOffline(pedido);
+                        
+                        localStorage.removeItem('carrito');
+                        actualizarCarrito();
+
+                        const checkoutModal = bootstrap.Modal.getInstance(document.getElementById('checkoutModal'));
+                        if (checkoutModal) checkoutModal.hide();
+
+                        document.getElementById('checkoutForm').reset();
+
+                        showToast('📡 Pedido guardado offline. Se sincronizará cuando haya conexión', 'warning');
+                    } catch (error) {
+                        console.error('Error guardando pedido offline:', error);
+                        showToast('Error guardando el pedido: ' + error.message, 'danger');
+                    }
+                    
+                    btnConfirmar.disabled = false;
+                    btnConfirmar.innerHTML = '<i class="fas fa-check-circle me-2"></i>Confirmar Pedido';
+                    return;
+                }
+
                 try {
+                    pedido.fecha = serverTimestamp();
                     const docRef = await addDoc(collection(db, 'pedidos'), pedido);
-                    console.log('Pedido creado:', docRef.id);
+                    console.log('✅ Pedido creado:', docRef.id);
 
                     localStorage.removeItem('carrito');
                     actualizarCarrito();
@@ -729,10 +1100,110 @@
             console.log('Event listener del checkout agregado correctamente');
         }
 
-        // Cargar producto al cargar la página
+        // ====================================
+        // MONITOREO DE CONEXIÓN
+        // ====================================
+        monitorearConexion(
+            // Online
+            () => {
+                showToast('Conexión restaurada', 'success');
+                // Recargar el producto desde Firebase
+                cargarProducto();
+            },
+            // Offline
+            () => {
+                showToast('Sin conexión - Modo offline activado', 'warning');
+            }
+        );
+
+        // INICIALIZAR
         cargarProducto();
         inicializarCheckout();
 
+    </script>
+    <script>
+    // ==========================================
+    // SISTEMA DE TRANSICIONES UNIVERSAL
+    // ==========================================
+    (function() {
+        'use strict';
+        
+        // Prevenir animación en recarga
+        if (performance.navigation.type === 1) {
+            document.body.style.animation = 'none';
+        }
+        
+        // Configuración
+        const config = {
+            animationClass: 'zoom-out', // Puedes cambiar entre 'fade-out', 'slide-out', 'zoom-out'
+            duration: 300,
+            ignoreSelectors: [
+                '[data-bs-toggle]',
+                '[href="#"]',
+                '[href*="#modal"]',
+                '[onclick]',
+                '.no-transition'
+            ]
+        };
+        
+        // Función para verificar si debe ignorarse
+        function shouldIgnoreLink(link) {
+            return config.ignoreSelectors.some(selector => {
+                return link.matches(selector) || link.closest(selector);
+            });
+        }
+        
+        // Función de transición
+        function transitionToPage(url) {
+            document.body.classList.add(config.animationClass);
+            setTimeout(() => {
+                window.location.href = url;
+            }, config.duration);
+        }
+        
+        // Inicializar cuando el DOM esté listo
+        document.addEventListener('DOMContentLoaded', function() {
+            // Interceptar todos los enlaces internos
+            document.addEventListener('click', function(e) {
+                const link = e.target.closest('a');
+                
+                if (!link) return;
+                
+                const href = link.getAttribute('href');
+                
+                // Verificar si es un enlace válido
+                if (!href || href.startsWith('http') || href.startsWith('mailto:') || href.startsWith('tel:') || href.startsWith('https://wa.me')) {
+                    return;
+                }
+                
+                // Ignorar ciertos enlaces
+                if (shouldIgnoreLink(link)) {
+                    return;
+                }
+                
+                // Aplicar transición
+                e.preventDefault();
+                transitionToPage(href);
+            });
+            
+            // Smooth scroll para anclas
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    const href = this.getAttribute('href');
+                    if (href !== '#' && !this.getAttribute('data-bs-toggle')) {
+                        e.preventDefault();
+                        const target = document.querySelector(href);
+                        if (target) {
+                            target.scrollIntoView({
+                                behavior: 'smooth',
+                                block: 'start'
+                            });
+                        }
+                    }
+                });
+            });
+        });
+    })();
     </script>
 </body>
 </html>
