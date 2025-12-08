@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no"">
     <title>Inventario</title>
     <link rel="manifest" href="manifest.webmanifest"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
@@ -208,7 +208,7 @@
             display: flex;
             overflow-x: auto;
             scroll-behavior: smooth;
-            gap: 3rem;
+            gap: 1rem;
             padding: 0.5rem 1rem;
             scrollbar-width: thin;
             scrollbar-color: #122C4F #e9ecef;
@@ -362,6 +362,104 @@
             right: -20px;
         }
 
+        /* ESTILOS PARA BÚSQUEDA Y PAGINACIÓN */
+        #searchInput {
+            border-left: none;
+            font-size: 1rem;
+        }
+
+        #searchInput:focus {
+            box-shadow: none;
+            border-color: #122C4F;
+        }
+
+        .input-group-text {
+            border-right: none;
+            color: #122C4F;
+        }
+
+        #clearSearch {
+            border-left: none;
+        }
+
+        .pagination {
+            gap: 0.5rem;
+        }
+
+        .pagination .page-link {
+            color: #122C4F;
+            border: 2px solid #dee2e6;
+            border-radius: 8px;
+            padding: 0.75rem 1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .pagination .page-link:hover {
+            background-color: #e3f2fd;
+            border-color: #122C4F;
+            color: #122C4F;
+        }
+
+        .pagination .page-item.active .page-link {
+            background-color: #122C4F;
+            border-color: #122C4F;
+            color: white;
+        }
+
+        .pagination .page-item.disabled .page-link {
+            background-color: #f8f9fa;
+            border-color: #dee2e6;
+            color: #6c757d;
+        }
+
+        #resultsInfo {
+            display: inline-block;
+        }
+
+        /* Highlight de búsqueda */
+        .search-highlight {
+            background-color: #fff3cd;
+            padding: 2px 4px;
+            border-radius: 3px;
+            font-weight: bold;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .pagination {
+                gap: 0.25rem;
+            }
+            
+            .pagination .page-link {
+                padding: 0.5rem 0.75rem;
+                font-size: 0.9rem;
+            }
+            
+            #searchInput {
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            #itemsPerPage {
+                padding-right: 40px; /* espacio para la flecha del select */
+            }
+        }
+
+    /* Evita que el menú del select se salga de la pantalla en móviles */
+    @media (max-width: 768px) {
+        select {
+            max-width: 100% !important;
+            width: 100% !important;
+            font-size: 16px !important;  /* evita zoom automático */
+        }
+
+        select option {
+            white-space: nowrap;
+        }
+    }
+
     </style>
 </head>
 <body class="bg-light">
@@ -380,6 +478,7 @@
                     <li class="nav-item"><a class="nav-link" href="index.html" style="font-size: 1.2rem;">Inicio</a></li>
                     <li class="nav-item"><a class="nav-link" href="#productos" style="font-size: 1.2rem;">Productos</a></li>
                     <li class="nav-item"><a class="nav-link" href="inventario2.html" style="font-size: 1.2rem;">Inventario</a></li>
+                    <li class="nav-item"><a class="nav-link" href="usuarios.html" style="font-size: 1.2rem;">Usuarios</a></li>
                 </ul>
             </div>
         </div>
@@ -434,12 +533,66 @@
                         <span>Audio</span>
                         <span class="category-badge">0</span>
                     </button>
+
+                    <button class="category-btn" data-categoria="juegos">
+                        <i class="fa-solid fa-gamepad"></i>
+                        <span>Juegos</span>
+                        <span class="category-badge">0</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Barra de búsqueda y controles -->
+            <div class="container mb-4">
+                <div class="row g-3 align-items-center">
+                    <!-- Buscador -->
+                    <div class="col-md-6">
+                        <div class="input-group input-group-lg">
+                            <span class="input-group-text bg-white">
+                                <i class="fas fa-search"></i>
+                            </span>
+                            <input 
+                                type="text" 
+                                class="form-control" 
+                                id="searchInput" 
+                                placeholder="Buscar por nombre, modelo, clave o descripción..."
+                            >
+                            <button class="btn btn-outline-secondary" type="button" id="clearSearch">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Selector de productos por página -->
+                    <div class="col-12 col-md-3">
+                        <select class="form-select py-2" id="itemsPerPage">
+                            <option value="8">8 productos</option>
+                            <option value="12" selected>12 productos</option>
+                            <option value="24">24 productos</option>
+                            <option value="48">48 productos</option>
+                            <option value="all">Todos</option>
+                        </select>
+                    </div>
+                    
+                    <!-- Info de resultados -->
+                    <div class="col-md-3 text-end">
+                        <span class="badge fs-6 py-2 px-3" id="resultsInfo" style="background-color: #122C4F;">
+                            0 productos
+                        </span>
+                    </div>
                 </div>
             </div>
 
             <!--Contenedor para mostrar los productos-->
             <section id="productos" class="container my-5">
                 <div id="productsContainer" class="row"></div>
+                
+                <!-- Paginación -->
+                <nav aria-label="Navegación de productos" class="mt-4" id="paginationContainer">
+                    <ul class="pagination pagination-lg justify-content-center" id="pagination">
+                        <!-- Se generará dinámicamente -->
+                    </ul>
+                </nav>
             </section>
         </div>
     
@@ -469,6 +622,7 @@
                                     <option value="computadoras">Equipos de Computo</option>
                                     <option value="cables">Cableado</option>
                                     <option value="audio">Audio</option>
+                                    <option value="juegos">Juegos</option>
                                 </select>
                             </div>
                             <div class="col-md-6">
@@ -628,6 +782,163 @@
 
         // VARIABLES
         let productos = [];
+        let paginaActual = 1;
+        let productosPorPagina = 12;
+        let terminoBusqueda = '';
+
+        // FUNCIÓN DE BÚSQUEDA
+        function buscarProductos(productos, termino) {
+            if (!termino || termino.trim() === '') {
+                return productos;
+            }
+            
+            const terminoLower = termino.toLowerCase().trim();
+            
+            return productos.filter(p => {
+                const nombre = (p.nombre || '').toLowerCase();
+                const modelo = (p.modelo || '').toLowerCase();
+                const clave = (p.clave || '').toLowerCase();
+                const descripcion = (p.descripcion || '').toLowerCase();
+                
+                return nombre.includes(terminoLower) || 
+                    modelo.includes(terminoLower) || 
+                    clave.includes(terminoLower) ||
+                    descripcion.includes(terminoLower);
+            });
+        }
+
+        // RENDERIZAR PAGINACIÓN
+        function renderPagination(totalProductos) {
+            const paginationContainer = document.getElementById('pagination');
+            
+            if (productosPorPagina === 'all' || totalProductos <= productosPorPagina) {
+                document.getElementById('paginationContainer').style.display = 'none';
+                return;
+            }
+            
+            document.getElementById('paginationContainer').style.display = 'block';
+            
+            const totalPaginas = Math.ceil(totalProductos / productosPorPagina);
+            paginationContainer.innerHTML = '';
+            
+            // Botón Anterior
+            const prevLi = document.createElement('li');
+            prevLi.className = `page-item ${paginaActual === 1 ? 'disabled' : ''}`;
+            prevLi.innerHTML = `
+                <a class="page-link" href="#productos" aria-label="Anterior">
+                    <i class="fas fa-chevron-left"></i>
+                </a>
+            `;
+            prevLi.addEventListener('click', (e) => {
+                e.preventDefault();
+                if (paginaActual > 1) {
+                    paginaActual--;
+                    renderProducts(categoriaActual);
+                }
+            });
+            paginationContainer.appendChild(prevLi);
+            
+            // Páginas
+            let startPage = Math.max(1, paginaActual - 2);
+            let endPage = Math.min(totalPaginas, paginaActual + 2);
+            
+            // Ajustar si estamos al inicio o al final
+            if (paginaActual <= 3) {
+                endPage = Math.min(5, totalPaginas);
+            }
+            if (paginaActual >= totalPaginas - 2) {
+                startPage = Math.max(1, totalPaginas - 4);
+            }
+            
+            // Primera página
+            if (startPage > 1) {
+                const firstLi = document.createElement('li');
+                firstLi.className = 'page-item';
+                firstLi.innerHTML = `<a class="page-link" href="#productos">1</a>`;
+                firstLi.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    paginaActual = 1;
+                    renderProducts(categoriaActual);
+                });
+                paginationContainer.appendChild(firstLi);
+                
+                if (startPage > 2) {
+                    const dotsLi = document.createElement('li');
+                    dotsLi.className = 'page-item disabled';
+                    dotsLi.innerHTML = `<span class="page-link">...</span>`;
+                    paginationContainer.appendChild(dotsLi);
+                }
+            }
+            
+            // Páginas numeradas
+            for (let i = startPage; i <= endPage; i++) {
+                const li = document.createElement('li');
+                li.className = `page-item ${i === paginaActual ? 'active' : ''}`;
+                li.innerHTML = `<a class="page-link" href="#productos">${i}</a>`;
+                li.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    paginaActual = i;
+                    renderProducts(categoriaActual);
+                });
+                paginationContainer.appendChild(li);
+            }
+            
+            // Última página
+            if (endPage < totalPaginas) {
+                if (endPage < totalPaginas - 1) {
+                    const dotsLi = document.createElement('li');
+                    dotsLi.className = 'page-item disabled';
+                    dotsLi.innerHTML = `<span class="page-link">...</span>`;
+                    paginationContainer.appendChild(dotsLi);
+                }
+                
+                const lastLi = document.createElement('li');
+                lastLi.className = 'page-item';
+                lastLi.innerHTML = `<a class="page-link" href="#productos">${totalPaginas}</a>`;
+                lastLi.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    paginaActual = totalPaginas;
+                    renderProducts(categoriaActual);
+                });
+                paginationContainer.appendChild(lastLi);
+            }
+            
+            // Botón Siguiente
+            const nextLi = document.createElement('li');
+            nextLi.className = `page-item ${paginaActual === totalPaginas ? 'disabled' : ''}`;
+            nextLi.innerHTML = `
+                <a class="page-link" href="#productos" aria-label="Siguiente">
+                    <i class="fas fa-chevron-right"></i>
+                </a>
+            `;
+            nextLi.addEventListener('click', (e) => {
+                e.preventDefault();
+                if (paginaActual < totalPaginas) {
+                    paginaActual++;
+                    renderProducts(categoriaActual);
+                }
+            });
+            paginationContainer.appendChild(nextLi);
+        }
+
+        // ACTUALIZAR INFO DE RESULTADOS
+        function actualizarInfoResultados(total, mostrando) {
+            const resultsInfo = document.getElementById('resultsInfo');
+            
+            if (terminoBusqueda) {
+                resultsInfo.innerHTML = `
+                    <i class="fas fa-search me-1"></i>
+                    ${total} resultado${total !== 1 ? 's' : ''} encontrado${total !== 1 ? 's' : ''}
+                `;
+                resultsInfo.className = 'badge bg-success fs-6 py-2 px-3';
+            } else {
+                resultsInfo.innerHTML = `
+                    <i class="fas fa-box me-1"></i>
+                    ${total} producto${total !== 1 ? 's' : ''}
+                `;
+                resultsInfo.className = 'badge fs-6 py-2 px-3';
+            }
+        }
 
         // EDITAR PRODUCTO
         let productoEditando = null; // Variable para saber si estamos editando
@@ -863,41 +1174,74 @@
         // MOSTRAR PRODUCTOS POR CATEGORÍA
         let categoriaActual = 'todas';
 
+        // RENDERIZAR PRODUCTOS (ACTUALIZADO)
         function renderProducts(categoria = 'todas') {
             const container = document.getElementById("productsContainer");
             container.innerHTML = "";
 
             console.log(`Renderizando categoría: ${categoria}`);
 
-            // Filtrar productos según categoría
+            // Filtrar por categoría
             let productosFiltrados = productos;
             if (categoria !== 'todas') {
                 productosFiltrados = productos.filter(p => p.categoria === categoria);
             }
+            
+            // Aplicar búsqueda
+            productosFiltrados = buscarProductos(productosFiltrados, terminoBusqueda);
+            
+            const totalProductos = productosFiltrados.length;
+            console.log(`Productos filtrados: ${totalProductos}`);
 
-            console.log(`Productos a mostrar: ${productosFiltrados.length}`);
-
-            // Actualizar badges con contadores
+            // Actualizar contadores
             actualizarContadores();
+            
+            // Calcular paginación
+            let productosPaginados = productosFiltrados;
+            if (productosPorPagina !== 'all') {
+                const inicio = (paginaActual - 1) * productosPorPagina;
+                const fin = inicio + productosPorPagina;
+                productosPaginados = productosFiltrados.slice(inicio, fin);
+                
+                // Ajustar página si nos pasamos
+                if (productosPaginados.length === 0 && paginaActual > 1) {
+                    paginaActual = 1;
+                    productosPaginados = productosFiltrados.slice(0, productosPorPagina);
+                }
+            }
+            
+            // Actualizar info
+            actualizarInfoResultados(totalProductos, productosPaginados.length);
+            
+            // Renderizar paginación
+            renderPagination(totalProductos);
 
-            // Mostrar mensaje si no hay productos
-            if (productosFiltrados.length === 0) {
+            // Mensaje si no hay productos
+            if (totalProductos === 0) {
+                const mensaje = terminoBusqueda 
+                    ? `No se encontraron productos que coincidan con "${terminoBusqueda}"`
+                    : 'No hay productos en esta categoría';
+                    
                 container.innerHTML = `
                     <div class="col-12">
                         <div class="empty-state">
                             <div class="empty-box">
-                                <i class="fas fa-box-open fa-3x" style="color: #122C4F;"></i>
+                                <i class="fas fa-${terminoBusqueda ? 'search' : 'box-open'} fa-3x" style="color: #122C4F;"></i>
                             </div>
-                            <h3 style="color: #122C4F;">No hay productos en esta categoría</h3>
-                            <p class="text-muted">Agrega productos usando el botón "Registrar Nuevo Producto"</p>
+                            <h3 style="color: #122C4F;">${mensaje}</h3>
+                            <p class="text-muted">
+                                ${terminoBusqueda 
+                                    ? 'Intenta con otros términos de búsqueda' 
+                                    : 'Agrega productos usando el botón "Registrar Nuevo Producto"'}
+                            </p>
                         </div>
                     </div>
                 `;
                 return;
             }
 
-            productosFiltrados.forEach((p) => {
-                // Imagen por defecto
+            // Renderizar productos
+            productosPaginados.forEach((p) => {
                 let imgSrc = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAwIiBoZWlnaHQ9IjE4MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCBmaWxsPSIjZTVlN2ViIiB3aWR0aD0iMzAwIiBoZWlnaHQ9IjE4MCIvPjx0ZXh0IGZpbGw9IiM5Y2EzYWYiIGZvbnQtZmFtaWx5PSJzYW5zLXNlcmlmIiBmb250LXNpemU9IjE4IiB4PSI1MCUiIHk9IjUwJSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZG9taW5hbnQtYmFzZWxpbmU9Im1pZGRsZSI+U2luIEltYWdlbjwvdGV4dD48L3N2Zz4=';
                 
                 if (Array.isArray(p.imagenes) && p.imagenes.length > 0) {
@@ -915,7 +1259,7 @@
                 
                 card.innerHTML = `
                     <div class="card shadow-sm h-100">
-                        <img src="${imgSrc}" class="card-img-top" style="object-fit:cover;" alt="${p.nombre}">
+                        <img src="${imgSrc}" class="card-img-top" style="object-fit:cover; height: 200px;" alt="${p.nombre}">
                         <div class="card-body">
                             <h5 class="card-title mb-2">${p.nombre}</h5>
                             <p class="text-muted mb-1 card-text"><small>${p.descripcion || "Sin descripción"}</small></p>
@@ -954,6 +1298,9 @@
                 });
             });
             
+            // Scroll suave al inicio de productos
+            document.getElementById('productos').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            
             console.log("Renderizado completo\n");
         }
 
@@ -963,7 +1310,8 @@
                 'cel': 'Celulares',
                 'computadoras': 'Equipos de Cómputo',
                 'cables': 'Cableado',
-                'audio' : 'Audio'
+                'audio' : 'Audio',
+                'juegos' : 'Juegos'
             };
             return nombres[categoria] || categoria;
         }
@@ -974,18 +1322,16 @@
                 'cel': productos.filter(p => p.categoria === 'cel').length,
                 'computadoras': productos.filter(p => p.categoria === 'computadoras').length,
                 'cables': productos.filter(p => p.categoria === 'cables').length,
-                'audio': productos.filter(p => p.categoria === 'audio').length
+                'audio': productos.filter(p => p.categoria === 'audio').length,
+                'juegos': productos.filter(p => p.categoria === 'juegos').length
             };
 
-            // Actualizar badges
             Object.keys(contadores).forEach(cat => {
                 const tab = document.querySelector(`[data-categoria="${cat}"]`);
                 if (tab) {
-                    // Remover badge anterior si existe
                     const badgeAnterior = tab.querySelector('.category-badge');
                     if (badgeAnterior) badgeAnterior.remove();
                     
-                    // Agregar nuevo badge
                     const badge = document.createElement('span');
                     badge.className = 'category-badge';
                     badge.textContent = contadores[cat];
@@ -993,6 +1339,28 @@
                 }
             });
         }
+
+        // EVENT LISTENERS PARA BÚSQUEDA
+        document.getElementById('searchInput').addEventListener('input', function(e) {
+            terminoBusqueda = e.target.value;
+            paginaActual = 1; // Resetear a primera página
+            renderProducts(categoriaActual);
+        });
+
+        document.getElementById('clearSearch').addEventListener('click', function() {
+            document.getElementById('searchInput').value = '';
+            terminoBusqueda = '';
+            paginaActual = 1;
+            renderProducts(categoriaActual);
+        });
+
+        // EVENT LISTENER PARA PRODUCTOS POR PÁGINA
+        document.getElementById('itemsPerPage').addEventListener('change', function(e) {
+            productosPorPagina = e.target.value === 'all' ? 'all' : parseInt(e.target.value);
+            paginaActual = 1;
+            renderProducts(categoriaActual);
+        });
+
 
         // Funcion para comprimir imagenes de los productos
         // Lee y COMPRIME múltiples imágenes
