@@ -57,6 +57,32 @@ function initDB() {
 // OPERACIONES CON PRODUCTOS
 // ============================================
 
+// Función para obtener un producto específico por ID
+async function obtenerProductoPorId(id) {
+    const db = await initDB();
+    return new Promise((resolve, reject) => {
+        const transaction = db.transaction(['productos'], 'readonly');
+        const store = transaction.objectStore('productos');
+        const request = store.get(id);
+        
+        request.onsuccess = () => resolve(request.result);
+        request.onerror = () => reject(request.error);
+    });
+}
+
+// Función para guardar un producto individual
+async function guardarProductoOffline(producto) {
+    const db = await initDB();
+    return new Promise((resolve, reject) => {
+        const transaction = db.transaction(['productos'], 'readwrite');
+        const store = transaction.objectStore('productos');
+        const request = store.put(producto);
+        
+        request.onsuccess = () => resolve();
+        request.onerror = () => reject(request.error);
+    });
+}
+
 // Guardar productos en IndexedDB
 async function guardarProductosOffline(productos) {
     if (!db) await initDB();
