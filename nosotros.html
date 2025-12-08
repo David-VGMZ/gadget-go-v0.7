@@ -79,34 +79,32 @@
         }
 
         .navbar-nav-ft {
-            --bs-nav-link-padding-x: 0;
-            --bs-nav-link-padding-y: 0rem;
-            --bs-nav-link-font-weight: ;
-            --bs-nav-link-color: var(--bs-navbar-color);
-            --bs-nav-link-hover-color: var(--bs-navbar-hover-color);
-            --bs-nav-link-disabled-color: var(--bs-navbar-disabled-color);
             display: flex;
-            flex-direction: column;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
             padding-left: 0;
             margin-bottom: 0;
             list-style: none;
-            font-size: 18px;
+            font-size: 16px;
+            gap: 2rem; /* Más espacio entre enlaces */
+        }
+
+        .navbar-nav-ft .nav-link {
+            color: white;
+            transition: color 0.3s ease;
+        }
+
+        .navbar-nav-ft .nav-link:hover {
+            color: #ffc107;
         }
 
         @media (max-width: 576px) {        
-                .navbar-nav-ft {
-                --bs-nav-link-padding-x: 0;
-                --bs-nav-link-padding-y: 0rem;
-                --bs-nav-link-font-weight: ;
-                --bs-nav-link-color: var(--bs-navbar-color);
-                --bs-nav-link-hover-color: var(--bs-navbar-hover-color);
-                --bs-nav-link-disabled-color: var(--bs-navbar-disabled-color);
-                display: flex;
-                flex-direction: column;
-                padding-left: 0;
-                margin-bottom: 0;
-                list-style: none;
+            .navbar-nav-ft {
+                flex-direction: row;
                 font-size: 14px;
+                gap: 0.5rem;
             }
         }
 
@@ -784,6 +782,127 @@
             }
         }
 
+        /* Team Card */
+        .team-card {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.4s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .team-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #122C4F, #2d5d9b, #122C4F);
+            transform: translateX(-100%);
+            transition: transform 0.4s ease;
+        }
+
+        .team-card:hover::before {
+            transform: translateX(0);
+        }
+
+        .team-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(18, 44, 79, 0.2);
+        }
+
+        .team-image-wrapper {
+            width: 180px;
+            height: 180px;
+            margin: 0 auto 1.5rem;
+            position: relative;
+        }
+
+        .team-image {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid #122C4F;
+            transition: all 0.4s ease;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+
+        .team-card:hover .team-image {
+            border-color: #2d5d9b;
+            transform: scale(1.05);
+        }
+
+        .team-role {
+            display: inline-block;
+            background: linear-gradient(135deg, #122C4F, #2d5d9b);
+            color: white;
+            padding: 0.5rem 1.5rem;
+            border-radius: 25px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .team-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #122C4F;
+            margin-bottom: 1rem;
+        }
+
+        .team-quote {
+            font-style: italic;
+            color: #6c757d;
+            font-size: 1rem;
+            line-height: 1.6;
+            position: relative;
+            padding: 1rem;
+        }
+
+        .team-quote::before {
+            content: '"';
+            font-size: 3rem;
+            color: #122C4F;
+            opacity: 0.2;
+            position: absolute;
+            top: -10px;
+            left: 0;
+        }
+
+        .team-social {
+            margin-top: 1.5rem;
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: #f8f9fa;
+            color: #122C4F;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .social-icon:hover {
+            background: #122C4F;
+            color: white;
+            transform: translateY(-3px);
+        }
+
     </style>
 </head>
 <body>
@@ -809,7 +928,7 @@
                     <li class="nav-item" id="registerNavBtn"><a class="nav-link" href="#registerModal" data-bs-toggle="modal" style="font-size: 1.2rem;">Registrarse</a></li>
                     <li class="nav-item" id="logoutBtn" style="display:none;"><a class="nav-link" href="#" style="font-size: 1.2rem;">Cerrar Sesión</a></li>
                     <li class="nav-item"><a class="nav-link" href="cuenta.html" style="font-size: 1.2rem;">Mi cuenta</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#modal" data-bs-toggle="modal" data-bs-target="#modalCont" style="font-size: 1.2rem;">Contacto</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#fter" style="font-size: 1.2rem;">Soporte</a></li>
                     <li class="nav-item" id="navInventario"><a class="nav-link" href="inventario2.html" style="font-size: 1.2rem;">Inventario</a></li>
                 </ul>
             </div>
@@ -838,7 +957,7 @@
                 <div class="card shadow-sm border-0 p-4 mt-3">
 
                     <h1 class="mb-5 text-center" style="color: #122C4F;"><strong>Conócenos</strong></h1>
-                    <p>Somos un equipo creativo dedicado a transformar ideas en soluciones visuales estratégicas. 
+                    <p>Somos <strong>Alfatech,</strong> un equipo creativo dedicado a transformar ideas en soluciones visuales estratégicas. 
                         Creemos que cada marca tiene una historia única y nuestro objetivo es ayudar a comunicarla de manera clara, 
                         estética y auténtica.</p>
                     <p>Trabajamos con pasión, cuidando cada detalle para que cada diseño no solo se vea bien, sino que tenga un propósito 
@@ -879,15 +998,112 @@
                         </li>
                     </ul>
                 </div>
-                <div class="card shadow-lg border-0 p-4 mt-5">
+                <div class="card shadow-sm border-0 p-4 mt-5">
                     <h1 class="mb-4 text-center" style="color: #122C4F;"><strong>Equipo de Trabajo</strong></h1>
-                    <p class="text-center">Nuestro equipo de trabajo está conformado por los siguientes integrantes:</p>
-                    <p></p>
-                    <div class="text-center mt-5">
-                        <a href="index.html" class="btn btn-primary btn-lg px-5" style="border:none;">
-                            Volver a la Tienda
-                        </a>
-                    </div>
+                    <h5 class="text-center mb-4">Conoce a las personas que hacen posible esta plataforma</h5>
+
+                    <!-- Team Section -->
+                    <section class="team-section">
+                        <div class="container">
+
+                            <div class="row g-4">
+                                <!-- Miembro 1 -->
+                                <div class="col-lg-4 col-md-6">
+                                    <div class="team-card">
+                                        <div class="team-image-wrapper">
+                                            <img src="./img/team/julieta.jpeg" alt="Miembro 1" class="team-image">
+                                        </div>
+                                        <span class="team-role">Scrum Master & UI/UX Designer</span>
+                                        <h3 class="team-name">Julieta García</h3>
+                                        <p class="team-quote">
+                                            "Cuando uno avanza, avanzamos todos. Así trabajamos aquí"
+                                        </p>
+                                        <div class="team-social">
+                                            <a href="https://www.instagram.com/juli_ga28?igsh=MWZ6OTQyOTdqZjdiNw==" class="social-icon" target="_blank" rel="noopener noreferrer">
+                                                <i class="fab fa-instagram"></i></a>
+                                            <a href="https://www.facebook.com/share/19xNo4BLAT/" class="social-icon" target="_blank" rel="noopener noreferrer">
+                                                <i class="fab fa-facebook"></i></a>
+                                            <a href="https://www.linkedin.com/in/julieta-garc" class="social-icon" target="_blank" rel="noopener noreferrer">
+                                                <i class="fab fa-linkedin"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Miembro 2 -->
+                                <div class="col-lg-4 col-md-6">
+                                    <div class="team-card">
+                                        <div class="team-image-wrapper">
+                                            <img src="./img/team/brandon.jpeg" alt="Miembro 4" class="team-image">
+                                        </div>
+                                        <span class="team-role">Developer</span>
+                                        <h3 class="team-name">Brandon García</h3>
+                                        <p class="team-quote">
+                                            "Hubo momentos en que la frustración era el lenguaje universal. Pero el secreto fue simple: la perseverancia de un equipo que no acepta un 'no funciona'.
+                                        </p>
+                                        <div class="team-social">
+                                            <a href="https://www.instagram.com/donbra2103?igsh=cDMzYjVpbDVqbGdl" class="social-icon" target="_blank" rel="noopener noreferrer">
+                                                <i class="fab fa-instagram"></i></a>
+                                            <a href="https://www.facebook.com/share/1BR798obGS/" class="social-icon" target="_blank" rel="noopener noreferrer">
+                                                <i class="fab fa-facebook"></i></a>
+                                            <a href="https://www.linkedin.com/in/brandon-garc%C3%ADa-7b283a2b1/" class="social-icon" target="_blank" rel="noopener noreferrer">
+                                                <i class="fab fa-linkedin"></i></a>
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Miembro 3 -->
+                                <div class="col-lg-4 col-md-6">
+                                    <div class="team-card">
+                                        <div class="team-image-wrapper">
+                                            <img src="./img/team/ricardo.jpeg" alt="Miembro 3" class="team-image">
+                                        </div>
+                                        <span class="team-role">Developer</span>
+                                        <h3 class="team-name">Ricardo Tapia</h3>
+                                        <p class="team-quote">
+                                            "Si quieres algo que nunca has tenido, haz algo que nunca has hecho"
+                                        </p>
+                                        <div class="team-social">
+                                            <a href="#" class="social-icon" target="_blank" rel="noopener noreferrer">
+                                                <i class="fab fa-instagram"></i></a>
+                                            <a href="#" class="social-icon" target="_blank" rel="noopener noreferrer">
+                                                <i class="fab fa-facebook"></i></a>
+                                            <a href="#" class="social-icon" target="_blank" rel="noopener noreferrer">
+                                                <i class="fab fa-linkedin"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Miembro 4 -->
+                                <div class="col-lg-4 col-md-6">
+                                    <div class="team-card">
+                                        <div class="team-image-wrapper">
+                                            <img src="./img/team/david.jpeg" alt="Miembro 2" class="team-image">
+                                        </div>
+                                        <span class="team-role">Frontend & Backend Developer | Product Owner</span>
+                                        <h3 class="team-name">David Villagomez</h3>
+                                        <p class="team-quote">
+                                            "Moldea tu presente, aprende del pasado y construye tu futuro"
+                                        </p>
+                                        <div class="team-social">
+                                            <a href="https://www.instagram.com/david_vc03?igsh=MW9sdDFjajhqeWc3aQ==" class="social-icon" target="_blank" rel="noopener noreferrer">
+                                                <i class="fab fa-instagram"></i></a>
+                                            <a href="https://www.facebook.com/share/19wUMNYFPr/" class="social-icon" target="_blank" rel="noopener noreferrer">
+                                                <i class="fab fa-facebook"></i></a>
+                                            <a href="www.linkedin.com/in/francisco-david-villagomez-carranza-5165b12b2" class="social-icon" target="_blank" rel="noopener noreferrer">
+                                                <i class="fab fa-linkedin"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                </div>
+                <div class="text-center mt-5">
+                    <a href="index.html" class="btn btn-primary btn-lg px-5" style="border:none;">
+                        Volver a la Tienda
+                    </a>
                 </div>
             </div>
         </div>
@@ -1186,15 +1402,17 @@
         </div>
     </div>
     <!--Footer-->
-    <footer class="text-white py-3" style="background-color: #122C4F;">
-        <!--Politicas-->
-            <ul class="navbar-nav-ft ms-auto">
-                <li class="nav-item text-center"><a class="nav-link" href="politicas-devolución.html">Politicas de Devolucion</a></li>
-                <li class="nav-item text-center"><a class="nav-link" href="#">Politicas de Uso</a></li>
-                <li class="nav-item text-center"><a class="nav-link" href="nosotros.html">Nosotros</a></li>
+    <footer id="fter" class="text-white py-3" style="background-color: #122C4F;">
+        <div class="container">
+            <!--Politicas-->
+            <ul class="navbar-nav-ft ms-auto mb-3">
+                <li class="nav-item"><a class="nav-link" href="politicas-devolución.html">Políticas de Devolución</a></li>
+                <li class="nav-item"><a class="nav-link" href="politicas-uso.html">Políticas de Uso</a></li>
+                <li class="nav-item"><a class="nav-link" href="#modal" data-bs-toggle="modal" data-bs-target="#modalCont">Contacto</a></li>
+                <li class="nav-item"><a class="nav-link" href="nosotros.html">Nosotros</a></li>
             </ul>
-        <p class="text-center mt-3">&copy; <strong>Gadget Go</strong> - Todos los derechos reservados</p>
-
+            <p class="text-center mt-2 mb-0">&copy; <strong>Gadget Go</strong> - Todos los derechos reservados</p>
+        </div>
     </footer>
     <!-- Firebase -->
     <script type="module">
