@@ -1,4 +1,4 @@
-const CACHE_NAME = 'gadget-go-v0.71';
+const CACHE_NAME = 'gadget-go-v1';
 
 const CRITICAL_URLS = [
   './',
@@ -236,6 +236,54 @@ self.addEventListener('fetch', (event) => {
 self.addEventListener('message', (event) => {
   if (event.data && event.data.type === 'SKIP_WAITING') {
     self.skipWaiting();
+  }
+});
+
+// Escuchar mensajes para sincronización de pedidos offline
+self.addEventListener('message', (event) => {
+  if (event.data && event.data.type === 'SYNC_PEDIDOS') {
+    event.waitUntil(syncOfflinePedidos());
+  }
+});
+
+// Función para sincronizar pedidos offline
+async function syncOfflinePedidos() {
+  try {
+    const cache = await caches.open(OFFLINE_PEDIDOS);
+    const requests = await cache.keys();
+    
+    for (const request of requests) {
+      const response = await cache.match(request);
+      const pedido = await response.json();
+      
+      // Intentar enviar el pedido a Firestore
+      try {
+        const result = await fetch('https://firestore.googleapis.com/v1/projects/primer-proyecto-7b2f4/databases/(default)/documents/pedidos', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(pedido)
+        });
+        
+        if (result.ok) {
+          // Eliminar del cache offline si se envió correctamente
+          await cache.delete(request);
+          console.log('✅ Pedido sincronizado:', pedido);
+        }
+      } catch (error) {
+        console.log('❌ Error sincronizando pedido:', error);
+      }
+    }
+  } catch (error) {
+    console.error('Error en syncOfflinePedidos:', error);
+  }
+}
+
+// Background Sync (si está disponible)
+self.addEventListener('sync', (event) => {
+  if (event.tag === 'sync-pedidos') {
+    event.waitUntil(syncOfflinePedidos());
   }
 });
 
