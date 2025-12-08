@@ -135,34 +135,32 @@
         }
 
         .navbar-nav-ft {
-            --bs-nav-link-padding-x: 0rem;
-            --bs-nav-link-padding-y: 0.2rem;
-            --bs-nav-link-font-weight: ;
-            --bs-nav-link-color: var(--bs-navbar-color);
-            --bs-nav-link-hover-color: var(--bs-navbar-hover-color);
-            --bs-nav-link-disabled-color: var(--bs-navbar-disabled-color);
             display: flex;
-            flex-direction: column;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
             padding-left: 0;
             margin-bottom: 0;
             list-style: none;
             font-size: 16px;
+            gap: 2rem; /* Más espacio entre enlaces */
+        }
+
+        .navbar-nav-ft .nav-link {
+            color: white;
+            transition: color 0.3s ease;
+        }
+
+        .navbar-nav-ft .nav-link:hover {
+            color: #ffc107;
         }
 
         @media (max-width: 576px) {        
-                .navbar-nav-ft {
-                --bs-nav-link-padding-x: 0;
-                --bs-nav-link-padding-y: 0rem;
-                --bs-nav-link-font-weight: ;
-                --bs-nav-link-color: var(--bs-navbar-color);
-                --bs-nav-link-hover-color: var(--bs-navbar-hover-color);
-                --bs-nav-link-disabled-color: var(--bs-navbar-disabled-color);
-                display: flex;
-                flex-direction: column;
-                padding-left: 0;
-                margin-bottom: 0;
-                list-style: none;
+            .navbar-nav-ft {
+                flex-direction: row;
                 font-size: 14px;
+                gap: 0.5rem;
             }
         }
 
@@ -475,7 +473,7 @@
             .categorias-scroll-container {
                 overflow: hidden;
                 position: relative;
-                margin-left: 16rem;
+                margin-left: 12rem;
             }
         }
 
@@ -631,7 +629,7 @@
 
         .slider-slide img {
             width: 100%;
-            height: 350px;
+            height: 320px;
             object-fit: cover;
             object-position: center;
             display: block;
@@ -983,7 +981,7 @@
                     <li class="nav-item" id="registerNavBtn"><a class="nav-link" href="#registerModal" data-bs-toggle="modal" style="font-size: 1.2rem;">Registrarse</a></li>
                     <li class="nav-item" id="logoutBtn" style="display:none;"><a class="nav-link" href="#" style="font-size: 1.2rem;">Cerrar Sesión</a></li>
                     <li class="nav-item"><a class="nav-link" href="perfil.html" style="font-size: 1.2rem;">Mi cuenta</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#modal" data-bs-toggle="modal" data-bs-target="#modalCont" style="font-size: 1.2rem;">Contacto</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#fter" style="font-size: 1.2rem;">Soporte</a></li>
                     <li class="nav-item" id="navInventario"><a class="nav-link" href="inventario2.html" style="font-size: 1.2rem;">Inventario</a></li>
                 </ul>
             </div>
@@ -1063,6 +1061,12 @@
                         <div class="categoria-item" onclick="filtrarCategoria('cables', this)">
                             <i class="fab fa-usb me-2"></i>
                             <span>Cableado</span>
+                        </div>
+
+                        <!-- Juegos -->
+                        <div class="categoria-item" onclick="filtrarCategoria('juegos', this)">
+                            <i class="fa-solid fa-gamepad"></i>
+                            <span class="ms-2">Juegos</span>
                         </div>
                     </div>
                 </div>
@@ -1262,16 +1266,19 @@
         </div>
     </div>
     <!--Footer-->
-    <footer class="text-white py-3" style="background-color: #122C4F;">
-        <!--Politicas-->
-            <ul class="navbar-nav-ft ms-auto">
-                <li class="nav-item text-center"><a class="nav-link" href="politicas-devolución.html">Politicas de Devolucion</a></li>
-                <li class="nav-item text-center"><a class="nav-link" href="#">Politicas de Uso</a></li>
-                <li class="nav-item text-center"><a class="nav-link" href="nosotros.html">Nosotros</a></li>
+    <footer id="fter" class="text-white py-3" style="background-color: #122C4F;">
+        <div class="container">
+            <!--Politicas-->
+            <ul class="navbar-nav-ft ms-auto mb-3">
+                <li class="nav-item"><a class="nav-link" href="politicas-devolución.html">Políticas de Devolución</a></li>
+                <li class="nav-item"><a class="nav-link" href="politicas-uso.html">Políticas de Uso</a></li>
+                <li class="nav-item"><a class="nav-link" href="#modal" data-bs-toggle="modal" data-bs-target="#modalCont">Contacto</a></li>
+                <li class="nav-item"><a class="nav-link" href="nosotros.html">Nosotros</a></li>
             </ul>
-        <p class="text-center mt-3">&copy; <strong>Gadget Go</strong> - Todos los derechos reservados</p>
-
+            <p class="text-center mt-2 mb-0">&copy; <strong>Gadget Go</strong> - Todos los derechos reservados</p>
+        </div>
     </footer>
+
     <script src="./db.js"></script>
     <!-- Firebase -->
     <script type="module">
