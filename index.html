@@ -206,9 +206,19 @@
         }
 
         .btn-ig:hover {
-            background-color: #d8472d;
+            background-color: #9e3421;
             border: none;
-            color: #e4735f;
+            color: #74281b;
+            padding: .5rem 1rem;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-ig:active {
+            background-color: #9e3421;
+            border: none;
+            color: #74281b;
             padding: .5rem 1rem;
             border-radius: 8px;
             font-weight: 600;
@@ -948,6 +958,12 @@
             transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
 
+        @media (max-width: 768px) {
+            .btn-mail {
+                margin-top: 8px;
+            }
+        }
+
     </style>
 </head>
 <body>
@@ -1166,10 +1182,10 @@
                             <button type="button" class="btn btn-success ms-auto">
                                 <a class="nav-link" href="https://wa.me/message/DUADVHTXENNMC1" target="_blank" rel="noopener noreferrer"><i class="fab fa-whatsapp me-2"></i>WhatsApp</a>
                             </button>
-                            <button type="button" class="btn btn-ig ms-auto">
+                            <button type="button" class="btn btn-primary ms-auto">
                                 <a class="nav-link" href="https://www.instagram.com/gadget_go25?igsh=a3VnMzN0ajIwaDhs" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram me-2"></i>Instagram</a>
                             </button>
-                            <button type="button" class="btn btn-primary ms-auto">
+                            <button type="button" class="btn btn-primary ms-auto btn-mail">
                                 <a class="nav-link" href="mailto:gadget.gomx@gmail.com" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-envelope me-2"></i>Correo</a>
                             </button>
                         </div>
