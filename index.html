@@ -303,7 +303,7 @@
         }
 
         .badge {
-            padding: 0.5rem 1rem;
+            padding: 0.3rem 1rem;
             border-radius: 6px;
             font-weight: 600;
         }
@@ -964,6 +964,16 @@
             }
         }
 
+        @media (min-width: 1200px) {
+            .cart-span {
+                font-size: 1rem;
+            }
+        }
+
+        .cart-span {
+                font-size: 1rem;
+            }
+
     </style>
 </head>
 <body>
@@ -977,9 +987,9 @@
             <a href="index.html">
                 <img class="thumbs mx-4" src="./img/Logo-GadgetGo-512x512-v2.png" alt="LogoGadget-Go" width="80">
             </a>
-                <a class="nav-link position-relative" href="#" data-bs-toggle="modal" data-bs-target="#carritoModal" style="font-size: 1.4rem;">
+                <a class="nav-link position-relative" href="#" data-bs-toggle="modal" data-bs-target="#carritoModal" style="font-size: 2rem;">
                     <i class="fa-solid fa-cart-shopping"></i>
-                    <span id="contador-carrito" class="position-absolute top-0 start-100 translate-middle badge rounded-pill" style="background-color: #fff7d4; color: #122C4F;">
+                    <span id="contador-carrito" class="cart-span position-absolute top-0 start-100 translate-middle badge rounded-pill" style="background-color: #fff7d4; color: #122C4F;">
                         0
                     </span>
                 </a>
@@ -1642,7 +1652,7 @@
                 col.className = "col-6 col-md-4 col-lg-3 mb-3";
                 
                 col.innerHTML = `
-                    <div class="h-100 shadow-lg" style="border-radius:10px; cursor: pointer;" 
+                    <div class="h-100 shadow" style="border-radius:10px; cursor: pointer;" 
                         onclick="window.location.href='producto.html#${p.id}'">
                         <img src="${imgSrc}" class="card-img-top" style="border-radius: 10px 10px 0 0;" alt="${p.nombre}" 
                             object-fit: cover; border-radius: 10px 10px 0 0;">
