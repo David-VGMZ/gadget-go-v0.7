@@ -1258,8 +1258,8 @@
                 card.className = "col-6 col-md-3 mb-4";
                 
                 card.innerHTML = `
-                    <div class="card shadow-sm h-100">
-                        <img src="${imgSrc}" class="card-img-top" style="object-fit:cover; height: 200px;" alt="${p.nombre}">
+                    <div class="shadow h-100" style="border-radius:10px; cursor: pointer;">
+                        <img src="${imgSrc}" class="card-img-top" style="border-radius: 10px 10px 0 0;" alt="${p.nombre}">
                         <div class="card-body">
                             <h5 class="card-title mb-2">${p.nombre}</h5>
                             <p class="text-muted mb-1 card-text"><small>${p.descripcion || "Sin descripción"}</small></p>
