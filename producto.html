@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gadget Go!</title>
-    <link rel="manifest" href="manifest.webmanifest"/>
+    <link rel="manifest" href="./manifest.webmanifest"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="apple-touch-icon" href="./icons/icon-192.png" />
@@ -21,19 +21,43 @@
         box-shadow: 0 6px 18px rgba(0,0,0,.2); z-index: 9999;
         }
 
+        #btnUp {
+            position: fixed;
+            right: 90rem;
+            bottom: 16px;
+            padding: 8px 8px;
+            border: 0;
+            border-radius: 20px;
+            background: #2d5d9b;
+            color: white;
+            font-size: 14px;
+            cursor: pointer;
+            box-shadow: 0 6px 18px rgba(0,0,0,.3);
+            z-index: 9999;
+            transition: all 0.3s ease;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        #btnUp:hover {
+            background: #1b4986;
+        }
+
+        @media (max-width: 576px) { 
+            #btnUp {
+                right: 20rem;
+            }
+        }
+
         :root {
             --primary-blue: #122C4F;
             --cream-bg: #ffffff;
             --dark-text: #ffffff;
         }
 
-        .py-5 {
+        .py-4 {
             padding-top: 3rem !important;
-            padding-bottom: 0rem !important;
-        }
-
-        .btn-link {
-            color: #122C4F;
+            padding-bottom: 1rem !important;
         }
 
         .navbar {
@@ -52,6 +76,36 @@
             color: var(--dark-text) !important;
             margin: 0 1rem;
             font-weight: 500;
+        }
+
+        .navbar-nav-ft {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            padding-left: 0;
+            margin-bottom: 0;
+            list-style: none;
+            font-size: 16px;
+            gap: 2rem; /* Más espacio entre enlaces */
+        }
+
+        .navbar-nav-ft .nav-link {
+            color: white;
+            transition: color 0.3s ease;
+        }
+
+        .navbar-nav-ft .nav-link:hover {
+            color: #ffc107;
+        }
+
+        @media (max-width: 576px) {        
+            .navbar-nav-ft {
+                flex-direction: row;
+                font-size: 14px;
+                gap: 0.5rem;
+            }
         }
 
         .hero-section {
@@ -76,6 +130,26 @@
             border-radius: 8px;
             font-weight: 600;
             margin-left: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .btn-ig {
+            background-color: #891521;
+            border: none;
+            color: white;
+            padding: .5rem 1rem;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-ig:hover {
+            background-color: #d8472d;
+            border: none;
+            color: white;
+            padding: .5rem 1rem;
+            border-radius: 8px;
+            font-weight: 600;
             transition: all 0.3s ease;
         }
 
@@ -170,251 +244,542 @@
         color: #ffc107;
         }
 
-    /* Botón Volver fijo */
-    .btn-volver-static {
-        position: fixed;
-        top: 140px; /* Debajo del navbar */
-        left: 20px;
-        z-index: 1000;
-        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
-    }
-
-    .btn-volver-static .btn {
-        transition: all 0.3s ease;
-    }
-
-    .btn-volver-static .btn:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 4px 10px rgba(18, 44, 79, 0.3);
-    }
-
-    @media (max-width: 768px) {
-        .btn-volver-static {
-            top: 120px;
-            left: 10px;
-        }
-    }
-        /* ==========================================
-        ANIMACIONES DE TRANSICIÓN DE PÁGINA
-        ========================================== */
-
-        /* Animación de entrada */
-        body {
-            animation: zoomIn 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        /* Ajustes generales para tarjetas de productos */
+        .card-title {
+            font-size: 0.9rem !important;
+            margin-bottom: 0.3rem;
         }
 
-        @keyframes zoomIn {
-            from {
-                opacity: 0;
-                transform: scale(0.95);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1);
+        .card-text {
+            font-size: 0.75rem !important;
+        }
+
+        .card-body {
+            padding: 0.6rem !important;
+        }
+
+        .price-text {
+            font-size: 1rem !important;
+            font-weight: bold;
+        }
+        /* Altura compacta para celulares */
+        .product-img {
+            height: 110px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        /* Altura mayor cuando la pantalla es grande */
+        @media (min-width: 768px) {
+            .product-img {
+                height: 180px;
             }
         }
 
-        /* Animación de salida */
-        body.fade-out {
-            animation: fadeOut 0.3s ease-out forwards;
-        }
-
-        @keyframes fadeOut {
-            from {
-                opacity: 1;
-            }
-            to {
-                opacity: 0;
+        @media (min-width: 1200px) {
+            .product-img {
+                height: 220px;
             }
         }
 
-        body.zoom-out {
-            animation: zoomOut 0.3s cubic-bezier(0.55, 0.085, 0.68, 0.53) forwards;
+        .carousel-img {
+            height: 200px;
+            object-fit: cover;
         }
 
-        @keyframes zoomOut {
-            from {
-                opacity: 1;
-                transform: scale(1);
+        /* Ajuste de texto del carrusel en móviles */
+        @media (max-width: 576px) {
+            .carousel-caption {
+                bottom: 50px !important;
+                padding: 0 10px !important;
+                width: 100% !important;
+                left: 0 !important;
+                right: 0 !important;
+                text-align: center;
             }
-            to {
-                opacity: 0;
-                transform: scale(1.05);
+
+            .carousel-caption h5 {
+                font-size: 1.5rem !important;   
+                font-weight: 700;
+                line-height: 1.2;
+                text-shadow: 2px 2px 5px rgba(0,0,0,0.9);
+                
             }
-        }
 
-        body.slide-out {
-            animation: slideOut 0.3s ease-in forwards;
-        }
-
-        @keyframes slideOut {
-            from {
-                opacity: 1;
-                transform: translateX(0);
-            }
-            to {
-                opacity: 0;
-                transform: translateX(-20px);
-            }
-        }
-
-        /* ==========================================
-        ANIMACIONES DE ELEMENTOS
-        ========================================== */
-
-        /* Animación del card del producto */
-        #producto-container .card {
-            animation: fadeInScale 0.3s ease-out;
-        }
-
-        @keyframes fadeInScale {
-            from {
-                opacity: 0;
-                transform: scale(0.95);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1);
+            .carousel-caption p {
+                font-size: 1rem !important; 
+                font-weight: 600;
+                line-height: 1.2;
+                margin-bottom: 0;
+                text-shadow: 1px 1px 3px rgba(0,0,0,0.7);
             }
         }
 
-        /* Animación de la imagen del producto */
-        #producto-container .card img {
-            animation: fadeIn 0.4s ease-out 0.2s backwards;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
+        /* Ajuste ed texto del carrusel para escritorio */
+        @media (min-width: 992px) {
+            .carousel-caption {
+                bottom: 80px !important;
+                padding: 0 10px !important;
+                width: 100% !important;
+                left: 0 !important;
+                right: 0 !important;
+                text-align: center;
             }
-            to {
-                opacity: 1;
-            }
-        }
 
-        /* Animación del contenido del producto */
-        #producto-container .card .col-md-6:last-child {
-            animation: slideInRight 0.4s ease-out 0.2s backwards;
-        }
-
-        @keyframes slideInRight {
-            from {
-                opacity: 0;
-                transform: translateX(30px);
+            .carousel-caption h5 {
+                font-size: 3rem;
+                text-shadow: 2px 2px 7px rgba(0,0,0,0.7);
             }
-            to {
-                opacity: 1;
-                transform: translateX(0);
+
+            .carousel-caption p {
+                font-size: 1.5rem !important; 
+                font-weight: 600;
+                line-height: 1.2;
+                margin-bottom: 0;
+                text-shadow: 1px 1px 4px rgba(0,0,0,0.6);
             }
         }
 
-        /* Hover en tarjetas */
-        .card {
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-        }
-
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2) !important;
-        }
-
-        /* Animación para modales */
-        .modal.fade .modal-dialog {
-            transition: transform 0.3s ease-out, opacity 0.3s ease-out;
-        }
-
-        /* Animación para botones */
-        .btn {
-            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-        }
-
-        .btn:hover {
-            transform: translateY(-2px);
-        }
-
-        .btn:active {
-            transform: scale(0.95);
-        }
-
-        /* Animación del botón volver */
-        .btn-volver-static {
-            animation: slideInLeft 0.4s ease-out;
-        }
-
-        @keyframes slideInLeft {
-            from {
-                opacity: 0;
-                transform: translateX(-50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
+        /* Tablet */
+        @media (min-width: 768px) {
+            .carousel-img {
+                height: 260px;
             }
         }
 
-        /* Animación del navbar */
-        .navbar {
-            animation: slideDown 0.5s ease-out;
-        }
-
-        @keyframes slideDown {
-            from {
-                transform: translateY(-100%);
-                opacity: 0;
-            }
-            to {
-                transform: translateY(0);
-                opacity: 1;
+        /* Escritorio grande */
+        @media (min-width: 1200px) {
+            .carousel-img {
+                height: 320px;
             }
         }
 
-        /* Smooth scroll mejorado */
-        html {
+        /* Márgenes y estilo del carrusel - MÁS RECTANGULAR */
+        #heroCarousel {
+            margin: 2rem auto;
+            max-width: 95%;
+            border-radius: 15px; 
+            overflow: hidden;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.25);
+        }
+
+        /* Ajustar altura de las imágenes para hacerlo más rectangular */
+        .carousel-img {
+            height: 280px;
+            object-fit: cover;
+        }
+
+        #heroCarousel .carousel-inner img {
+            height: 280px !important; 
+            object-fit: cover;
+        }
+
+        /* Responsive - Márgenes más pequeños en móvil */
+        @media (max-width: 768px) {
+            #heroCarousel {
+                max-width: 94%;
+                margin: 0.50rem auto;
+            }
+            
+            #heroCarousel .carousel-inner img {
+                height: 125px !important; /* Menos alto en móvil */
+            }
+        }
+
+
+        /* Desktop - Más rectangular (más ancho que alto) */
+        @media (min-width: 1200px) {
+            #heroCarousel {
+                margin: 3rem auto;
+                max-width: 92%;
+            }
+            
+            #heroCarousel .carousel-inner img {
+                height: 250px !important;
+            }
+        }
+
+        /* Ultra ancho (pantallas grandes) */
+        @media (min-width: 1600px) {
+            #heroCarousel .carousel-inner img {
+                height: 250px !important;
+            }
+        }
+
+        /* Slider de Categorías */
+        .categorias-scroll-container {
+            overflow: hidden;
+            position: relative; 
+        }
+
+        /* Slider de Categorias (Escritorio) */
+        @media (min-width: 1200px) {
+            .categorias-scroll-container {
+                overflow: hidden;
+                position: relative;
+                margin-left: 16rem;
+            }
+        }
+
+        .categorias-scroll {
+            display: flex;
+            gap: 12px;
+            overflow-x: auto;
             scroll-behavior: smooth;
+            /*padding: 10px 0; */
+            -ms-overflow-style: none;
+            scrollbar-width: none;
         }
 
-        /* Transición suave en imágenes */
-        img {
-            transition: transform 0.2s ease, opacity 0.2s ease;
+        .categorias-scroll::-webkit-scrollbar {
+            display: none;
         }
 
-        img:hover {
-            transform: scale(1.02);
+        .categoria-item {
+            display: inline-flex;
+            align-items: center;
+            padding: 12px 24px;
+            background-color: #fff;
+            border: 2px solid #e5e7eb;
+            border-radius: 25px;
+            color: #122C4F;
+            font-weight: 600;
+            font-size: 0.95rem;
+            white-space: nowrap;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            user-select: none;
         }
 
-        /* Loading spinner con animación */
-        .spinner-border {
-            animation: spin 0.75s linear infinite;
+        .categoria-item:hover {
+            background-color: #f3f4f6;
+            border-color: #122C4F;
+            box-shadow: 0 4px 8px rgba(18, 44, 79, 0.15);
         }
 
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+        .categoria-item.active {
+            background-color: #122C4F;
+            color: white;
+            border-color: #122C4F;
+            box-shadow: 0 4px 12px rgba(18, 44, 79, 0.3);
         }
 
-        /* Animación de entrada para alerts */
-        .alert {
-            animation: slideInDown 0.4s ease-out;
+        .categoria-item i {
+            font-size: 1.1rem;
         }
 
-        @keyframes slideInDown {
-            from {
-                opacity: 0;
-                transform: translateY(-20px);
+        /* Botones de navegación */
+        .carousel-scroll-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: white;
+            border: 2px solid #e5e7eb;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 10;
+            transition: all 0.3s ease;
+            color: #122C4F;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .carousel-scroll-btn:hover {
+            background-color: #122C4F;
+            color: white;
+            border-color: #122C4F;
+            transform: translateY(-50%) scale(1.1);
+            box-shadow: 0 4px 12px rgba(18, 44, 79, 0.3);
+        }
+
+        .carousel-scroll-btn:active {
+            transform: translateY(-50%) scale(0.95);
+        }
+
+        .carousel-scroll-btn.prev {
+            left: -15px;
+        }
+
+        .carousel-scroll-btn.next {
+            right: -15px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .categoria-item {
+                padding: 10px 20px;
+                font-size: 0.9rem;
             }
-            to {
-                opacity: 1;
-                transform: translateY(0);
+            
+            .carousel-scroll-btn {
+                width: 35px;
+                height: 35px;
+            }
+            
+            .carousel-scroll-btn.prev {
+                left: 0;
+            }
+            
+            .carousel-scroll-btn.next {
+                right: 0;
             }
         }
 
-        /* Transición para badges */
-        .badge {
+        @media (max-width: 576px) {
+            .categoria-item {
+                padding: 8px 16px;
+                font-size: 0.85rem;
+            }
+        }
+
+        /* ========================================
+        SLIDER DESLIZABLE MEJORADO
+        ======================================== */
+
+        .slider-container {
+            position: relative;
+            width: 95%;
+            max-width: 1400px;
+            margin: 2rem auto;
+            overflow: hidden;
+            border-radius: 15px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+        }
+
+        .slider-wrapper {
+            width: 100%;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .slider-track {
+            display: flex;
+            transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            will-change: transform;
+        }
+
+        .slider-slide {
+            min-width: 100%;
+            max-width: 100%;
+            width: 100%;
+            position: relative;
+            flex-shrink: 0;
+            flex-grow: 0;
+        }
+
+        .slider-slide img {
+            width: 100%;
+            height: 350px;
+            object-fit: cover;
+            object-position: center;
+            display: block;
+        }
+
+        /* Textos sobre las imágenes */
+        .slider-caption {
+            position: absolute;
+            bottom: 50px;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+            color: white;
+            width: 90%;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        .slider-caption h5 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
+            margin-bottom: 0.5rem;
+        }
+
+        .slider-caption p {
+            font-size: 1.3rem;
+            font-weight: 600;
+            text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.7);
+        }
+
+        /* Flechas de navegación */
+        .slider-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(255, 255, 255, 0.9);
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: #122C4F;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .slider-arrow:hover {
+            background-color: #122C4F;
+            color: white;
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .slider-prev {
+            left: 20px;
+        }
+
+        .slider-next {
+            right: 20px;
+        }
+
+        /* Indicadores (dots) */
+        .slider-dots {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+            z-index: 10;
+        }
+
+        .slider-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.5);
+            border: 2px solid white;
+            cursor: pointer;
             transition: all 0.3s ease;
         }
 
-        .badge:hover {
-            transform: scale(1.05);
+        .slider-dot.active {
+            background-color: white;
+            transform: scale(1.3);
+        }
+
+        .slider-dot:hover {
+            background-color: rgba(255, 255, 255, 0.8);
+        }
+
+        /* ========================================
+        RESPONSIVE
+        ======================================== */
+
+        /* Tablets */
+        @media (max-width: 768px) {
+            .slider-container {
+                width: 94%;
+                margin: 0.5rem auto;
+            }
+            
+            .slider-slide img {
+                height: 200px;
+            }
+            
+            .slider-caption {
+                bottom: 30px;
+            }
+            
+            .slider-caption h5 {
+                font-size: 1.5rem;
+            }
+            
+            .slider-caption p {
+                font-size: 1rem;
+            }
+            
+            .slider-arrow {
+                width: 40px;
+                height: 40px;
+                font-size: 1rem;
+            }
+            
+            .slider-prev {
+                left: 10px;
+            }
+            
+            .slider-next {
+                right: 10px;
+            }
+        }
+
+        /* Móviles */
+        @media (max-width: 576px) {
+            .slider-container {
+                width: 92%;
+                margin: 0.5rem auto;
+            }
+            
+            .slider-slide img {
+                height: 120px;
+            }
+            
+            .slider-caption {
+                bottom: 20px;
+            }
+            
+            .slider-caption h5 {
+                font-size: 1.2rem;
+            }
+            
+            .slider-caption p {
+                font-size: 0.85rem;
+            }
+            
+            .slider-arrow {
+                width: 25px;
+                height: 25px;
+                font-size: 0.7rem;
+            }
+            
+            .slider-dots {
+                bottom: 10px;
+            }
+            
+            .slider-dot {
+                width: 10px;
+                height: 10px;
+            }
+        }
+
+        /* Desktop grande */
+        @media (min-width: 1200px) {
+            .slider-container {
+                max-width: 1400px;
+                width: 92%;
+            }
+            
+            .slider-slide img {
+                height: 300px;
+            }
+            
+            .slider-caption {
+                bottom: 60px;
+            }
+            
+            .slider-caption h5 {
+                font-size: 3rem;
+            }
+            
+            .slider-caption p {
+                font-size: 1.5rem;
+            }
+        }
+
+        /* Desktop ultra ancho */
+        @media (min-width: 1600px) {
+            .slider-slide img {
+                height: 350px;
+            }
         }
 
     </style>
@@ -432,143 +797,325 @@
             </a>
                 <a class="nav-link position-relative" href="#" data-bs-toggle="modal" data-bs-target="#carritoModal" style="font-size: 1.4rem;">
                     <i class="fa-solid fa-cart-shopping"></i>
-                    <span id="contador-carrito" class="position-absolute top-0 start-100 translate-middle badge rounded-pill" style="background-color: #FBF9E4; color: #122C4F;">
+                    <span id="contador-carrito" class="position-absolute top-0 start-100 translate-middle badge rounded-pill" style="background-color: #fff7d4; color: #122C4F;">
                         0
                     </span>
                 </a>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="#productos" style="font-size: 1.2rem;">Productos</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#modal" data-bs-toggle="modal" data-bs-target="#myModal" style="font-size: 1.2rem;">Contacto</a></li>
-                    <li class="nav-item"><a class="nav-link" href="inventario2.html" style="font-size: 1.2rem;">Inventario</a></li>
+                    <a class="nav-link" href="#" style="font-size: 1.6rem;"><li class="nav-item fas fa-sign-out-alt " id="logoutBtn" style="display:none;"></li></a>
+                    <li class="nav-item" id="loginNavBtn"><a class="nav-link" href="#loginModal" data-bs-toggle="modal" style="font-size: 1.2rem;">Iniciar Sesion</a></li>
+                    <li class="nav-item"><a class="nav-link" href="cuenta.html" style="font-size: 1.2rem;">Mi cuenta</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#fter" style="font-size: 1.2rem;">Soporte</a></li>
+                    <li class="nav-item" id="navInventario"><a class="nav-link" href="inventario2.html" style="font-size: 1.2rem;">Inventario</a></li>
                 </ul>
             </div>
         </div>
     </nav>
-
-    <header id="inicio" class="mt-5 py-4" style="background-color: #ffffff;">
-        <div class="toast-container position-fixed top-0 end-0 p-3" id="toastZone"></div>
-    </header>
-
-   <!-- Reemplaza tu div del botón por este -->
-    <a href="index.html" class="btn-volver-static">
-        <button class="btn btn-primary">
-            <i class="fas fa-arrow-left me-2"></i>
-        </button>
-    </a>
-    
-    <script>
-    // Recuperar carrito o inicializarlo vacío
-    let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
-
-    function guardarCarrito() {
-        localStorage.setItem('carrito', JSON.stringify(carrito));
-        }
-
-    function agregarAlCarrito(producto) {
-        const item = carrito.find(p => p.id === producto.id);
-        if (item) {
-        item.cantidad++;
-        } else {
-        carrito.push(producto);
-        }
-        guardarCarrito();
-        actualizarCarrito();
-
-        showToast('<i class="fa-solid fa-cart-plus me-2"></i> Producto agregado al carrito', "primary");
-
-        }
-
-    function eliminarDelCarrito(id) {
-        carrito = carrito.filter(p => String(p.id) !== String(id));
-        guardarCarrito();
-        actualizarCarrito();
-        const alert = document.createElement('div');
-        showToast('<i class="fa-solid fa-cart-plus me-2"></i> Producto eliminado del carrito', "danger");
-        alert.className = "alert alert-danger position-fixed top-0 end-0 m-3";
-        alert.textContent = "Producto eliminado del carrito";
-        document.body.appendChild(alert);
-        }
-
-
-    function vaciarCarrito() {
-        carrito = [];
-        guardarCarrito();
-        actualizarCarrito();
-    }
-
-    // Actualizar vista del carrito en el modal y contador
-    function actualizarCarrito() {
-        const contenedor = document.getElementById('carrito-container');
-        const contador = document.getElementById('contador-carrito');
-        contador.textContent = carrito.reduce((acc, p) => acc + p.cantidad, 0);
-
-        // Escuchar cuando se abre el modal del carrito
-        const carritoModal = document.getElementById('carritoModal');
-        if (carritoModal) {
-            carritoModal.addEventListener('shown.bs.modal', function () {
-
-                    actualizarCarrito();
-            });
-        }
-
-        if (carrito.length === 0) {
-        contenedor.innerHTML = '<p class="text-center text-muted">Tu carrito está vacío</p>';
-        return;
-        }
-
-        contenedor.innerHTML = carrito.map(p => `
-        <div class="producto border rounded p-2 my-2 d-flex align-items-center justify-content-between">
-            <div class="d-flex align-items-center">
-            <img src="${p.imagen}" width="80" class="me-3 rounded">
-            <div> 
-                <h5 class="mb-1">${p.nombre}</h5>
-                <p class="mb-0">$${p.precio} x ${p.cantidad}</p>
-            </div>
-            </div>
-            <button class="btn btn-danger btn-sm" onclick="eliminarDelCarrito('${p.id}')">X</button>
-        </div>
-        `).join('');
-    }
-
-    // Mostrar carrito al cargar la página
-    document.addEventListener('DOMContentLoaded', actualizarCarrito);
-
-    function showToast(msg, type = "success") {
-            const container = document.getElementById("toastZone");
-
-            const toastEl = document.createElement("div");
-            toastEl.className = `toast align-items-center text-bg-${type} border-0`;
-            toastEl.setAttribute("role", "alert");
-            toastEl.setAttribute("aria-live", "assertive");
-            toastEl.setAttribute("aria-atomic", "true");
-
-            toastEl.innerHTML = `
-                <div class="d-flex">
-                    <div class="toast-body">${msg}</div>
-                    <button type="button" class="btn-close btn-close-white me-2 m-auto"
-                        data-bs-dismiss="toast" aria-label="Close"></button>
+    <!--Inicio-->
+    <section class="pt-3">
+        <div class="mt-5 pt-5 ">
+            <!-- Slider Deslizable -->
+            <div class="slider-container">
+                <div class="slider-wrapper" id="sliderWrapper">
+                    <div class="slider-track" id="sliderTrack">
+                        <!-- Slide 1 -->
+                        <div class="slider-slide">
+                            <img class="slider-img" src="./img/banner-politicas-uso-01.png" alt="Banner-Politicas">
+                        </div>
+                    </div>
                 </div>
-            `;
-
-            container.appendChild(toastEl);
-
-            const toast = new bootstrap.Toast(toastEl);
-            toast.show();
-
-            // remover después de 4 segundos
-            setTimeout(() => toastEl.remove(), 4000);
-        }
-    </script>
-
-    <section id="productos" class="container my-3">
-        <div class="container" id="producto-container">
-            <p class="text-center text-muted">Cargando producto...</p>
+            </div>
         </div>
     </section>
 
-    <!-- The Modal -->
-    <div class="modal fade" id="myModal">
+    <header class="policy-header">
+        <div class="container">
+                <h1 class="display-5 fw-bold pt-4" style="color: var(--primary-blue);">Términos y Condiciones de Uso</h1>
+                <p class="lead text-muted">Última actualización: 25 de noviembre de 2025</p>
+            </div>
+    </header>
+
+    <main class="container mb-5 policy-content">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <div class="card shadow-sm border-0 p-4 mt-3">
+
+                    <h1 class="mb-5 text-center" style="color: #122C4F;"><strong>Bienvenido a Gadget Go!</strong></h1>
+                    <h5>A continuación, se detallan los términos y condiciones que rigen el uso de
+                        nuestra plataforma y la compra de nuestros productos. Al acceder, navegar o utilizar nuestra
+                        aplicación (PWA) y sitio web, usted acepta estar sujeto a estas condiciones.</h5>
+                </div>
+                <div class="card shadow-sm border-0 p-4">
+
+                    <h2><strong>1. Generalidades</strong></h2>
+                    <p><strong>Gadget Go!</strong> es una tienda en línea dedicada a la venta de <strong>accesorios tecnológicos</strong>.
+                        Nuestra
+                        plataforma opera bajo la tecnología <strong>Web App (PWA)</strong>, lo que permite una experiencia
+                        similar a una aplicación nativa accesible desde cualquier navegador web moderno.
+                    </p>
+
+                    <h2 class="mt-3"><strong>2. Uso de la Plataforma PWA</strong></h2>
+                    <ul>
+                        <li><strong>Acceso e Instalación:</strong> Al ser una PWA, Gadget Go no requiere descarga desde tiendas de
+                            aplicaciones tradicionales. Usted puede instalar el acceso directo en su dispositivo móvil o
+                            escritorio directamente desde su navegador.</li>
+                        <li class="mt-3"><strong>Conectividad:</strong> Aunque la PWA permite navegar por ciertas secciones sin conexión (offline)
+                            gracias al almacenamiento en caché, se requiere una conexión activa a internet para
+                            actualizar precios, inventario y procesar pagos.</li>
+                        <li class="mt-3"><strong>Actualizaciones:</strong> La plataforma se actualiza automáticamente. Al usarla, usted acepta
+                            recibir estas mejoras sin necesidad de realizar acciones manuales.</li>
+                    </ul>
+
+                    <h2 class="mt-3"><strong>3. Productos y Disponibilidad</strong></h2>
+                    <p>En Gadget Go comercializamos dos tipos de productos, los cuales están claramente etiquetados en
+                        su descripción:</p>
+                    <ul>
+                        <li><strong>A) Productos Nuevos:</strong> Artículos en su empaque original, sellados y sin uso previo. Cuentan
+                            con la garantía estándar del fabricante y la nuestra.</li>
+                        <li class="mt-3"><strong>B) Productos Reacondicionados (Seminuevos/Segunda Mano):</strong> Artículos que han sido
+                            inspeccionados, limpiados y reparados (si fue necesario) para asegurar su funcionalidad al
+                            100%.</li>
+                            <ul class="mt-2">
+                                <li><strong>Condición Estética:</strong> Pueden presentar ligeros signos de desgaste estético (rayones
+                                    menores) que no afectan su funcionamiento.</li>
+                                <li class="mt-3"><strong>Empaque:</strong> Pueden no incluir el empaque original y enviarse en cajas genéricas de
+                                    protección.</li>
+                                <li class="mt-3"><strong>Accesorios:</strong> A menos que se indique lo contrario, incluyen cable y cargador
+                                    (pueden ser genéricos de alta calidad), pero no necesariamente manuales o
+                                    auriculares originales.</li>
+                            </ul>
+                    </ul>
+
+                    <h2 class="mt-3"><strong>4. Precios y Pagos</strong></h2>
+                    <ul>
+                        <li>Todos los precios están expresados en<strong> [Moneda, ej. Pesos Mexicanos (MXN)] </strong>e incluyen
+                            los impuestos aplicables.</li>
+                        <li class="mt-3">Gadget Go se reserva el derecho de modificar los precios sin previo aviso. Sin embargo, se
+                            respetará el precio de cualquier pedido que ya haya sido confirmado y pagado.</li>
+                        <li class="mt-3">Aceptamos los métodos de pago mostrados al momento del checkout (tarjetas de
+                            crédito/débito, transferencias, pasarelas de pago).</li>
+                    </ul>
+
+                    <h2 class="mt-3"><strong>5. Envíos y Entregas</strong></h2>
+                    <ul>
+                        <li>Los tiempos de envío son estimados y dependen de la paquetería externa.</li>
+                        <li class="mt-3">Una vez que el paquete sale de nuestras instalaciones, Gadget Go proporcionará un
+                            número de guía para su rastreo.</li>
+                        <li class="mt-3">Es responsabilidad del usuario proporcionar una dirección exacta y completa. No nos
+                            hacemos responsables por paquetes devueltos por direcciones incorrectas.</li>
+                    </ul>
+                    <h2 class="mt-3"><strong>6. Garantía</strong></h2>
+                    <p>Nuestra política de garantía varía según el tipo de producto:</p>
+                    <ul>
+                        <li><strong>Productos Nuevos:</strong> Garantía de <strong>[Ej. 6 meses]</strong> por defectos de fábrica directamente con
+                            nosotros, más la garantía que ofrezca el fabricante.</li>
+                        <li><strong>Productos Reacondicionados:</strong> Garantía de <strong>[Ej. 90 días]</strong> exclusiva con Gadget Go por
+                            defectos de funcionamiento.</li>
+                        <li><strong>Exclusiones:</strong> La garantía no cubre daños por agua, caídas, golpes, mal uso eléctrico o
+                            modificaciones de software (jailbreak/root) realizadas por el usuario.</li>
+                    </ul>
+
+                    <h2 class="mt-3"><strong>7. Cambios y Devoluciones</strong></h2>
+                    <p>Usted tiene un plazo de <strong>[Ej. 5 días hábiles]</strong> después de recibir el producto para solicitar una
+                        devolución si:</p>
+                    <ol>
+                        <li>El producto llegó dañado por la paquetería (debe reportarse en las primeras 24 horas).</li>
+                        <li class="mt-3">Recibió un producto incorrecto.</li>
+                        <li class="mt-3">El producto presenta fallas funcionales.</li>
+                    </ol>
+                    <p>Nota: Para productos reacondicionados, no aplican devoluciones por detalles estéticos que ya
+                        estaban especificados en la descripción del producto o por insatisfacción subjetiva sobre la
+                        condición cosmética, siempre que el equipo funcione correctamente.
+                    </p>
+
+                    <h2 class="mt-3"><strong>8. Propiedad Intelectual</strong></h2>
+                    <p>Todo el contenido visible en la PWA Gadget Go (logotipos, textos, imágenes, código fuente) es
+                        propiedad exclusiva de Gadget Go o de sus respectivos titulares y está protegido por las leyes de
+                        propiedad intelectual.</p>
+
+                    <h2 class="mt-3"><strong>9. Privacidad</strong></h2>
+                    <p>Sus datos personales están seguros con nosotros. Para más información sobre cómo recopilamos y
+                        usamos su información, consulte nuestro <strong>Aviso de Privacidad</strong>.</p>
+
+                    <h2 class="mt-3"><strong>10. Contacto</strong></h2>
+                    <p>Para dudas, reclamaciones o soporte técnico sobre la PWA o sus pedidos, puede contactarnos a
+                        través de:</p>
+                    <ul>
+                        <li><strong>Correo Electrónico:</strong> gadgetgo.contacto@gmail.com</li>
+                        <li class="mt-3"><strong>WhatsApp/Teléfono:</strong> (+52) 44-38-38-13-50</li>
+                    </ul>
+                    <div class="text-center mt-5">
+                        <a href="index.html" class="btn btn-primary btn-lg px-5" style="background-color: var(--primary-blue); border:none;">
+                            Volver a la Tienda
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Modal Login -->
+    <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+        
+            <div class="modal-header" style="background:#122C4F; color:white;">
+                <h5 class="modal-title" id="loginLabel">Iniciar Sesión</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+
+            <div class="modal-body">
+                <input id="user" type="text" class="form-control mb-3" placeholder="Correo">
+
+                <input id="pass" type="password" class="form-control mb-3" placeholder="Contraseña">
+
+                <p id="error-msg" class="text-danger text-center"></p>
+            </div>
+
+            <div class="modal-footer">
+                <button id="loginBtn" class="btn btn-primary w-100">Ingresar</button>
+            </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Registro -->
+    <div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="registerLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+
+                <div class="modal-header" style="background:#122C4F; color:white;">
+                    <h5 class="modal-title" id="registerLabel">Crear Cuenta</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+
+                <div class="modal-body">
+                    <input id="regEmail" type="email" class="form-control mb-3" placeholder="Correo">
+
+                    <input id="regPass" type="password" class="form-control mb-3" placeholder="Contraseña (mínimo 6 caracteres)">
+
+                    <p id="regError" class="text-danger text-center"></p>
+                </div>
+
+                <div class="modal-footer">
+                    <button id="registerBtn" class="btn btn-primary w-100">Registrarse</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+<script>
+  // Recuperar carrito o inicializarlo vacío
+  let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+
+  function guardarCarrito() {
+    localStorage.setItem('carrito', JSON.stringify(carrito));
+    }
+
+  function agregarAlCarrito(producto) {
+    const item = carrito.find(p => p.id === producto.id);
+    if (item) {
+      item.cantidad++;
+    } else {
+      carrito.push(producto);
+    }
+    guardarCarrito();
+    actualizarCarrito();
+    }
+
+  function eliminarDelCarrito(id) {
+    carrito = carrito.filter(p => String(p.id) !== String(id));
+    guardarCarrito();
+    actualizarCarrito();
+    const alert = document.createElement('div');
+    showToast('<i class="fa-solid fa-cart-plus me-2"></i> Producto eliminado del carrito', "danger");
+    alert.className = "alert alert-danger position-fixed top-0 end-0 m-3";
+    alert.textContent = "Producto eliminado del carrito";
+    document.body.appendChild(alert);
+    setTimeout(() => alert.remove(), 2000);
+    }
+
+
+  function vaciarCarrito() {
+    carrito = [];
+    guardarCarrito();
+    actualizarCarrito();
+  }
+
+  // Actualizar vista del carrito en el modal y contador
+  function actualizarCarrito() {
+    const contenedor = document.getElementById('carrito-container');
+    const contador = document.getElementById('contador-carrito');
+    contador.textContent = carrito.reduce((acc, p) => acc + p.cantidad, 0);
+
+    // Escuchar cuando se abre el modal del carrito
+    const carritoModal = document.getElementById('carritoModal');
+    if (carritoModal) {
+        carritoModal.addEventListener('shown.bs.modal', function () {
+
+                actualizarCarrito();
+        });
+    }
+
+    if (carrito.length === 0) {
+      contenedor.innerHTML = '<p class="text-center text-muted">Tu carrito está vacío</p>';
+      return;
+    }
+
+    contenedor.innerHTML = carrito.map(p => `
+      <div class="producto border rounded p-2 my-2 d-flex align-items-center justify-content-between">
+        <div class="d-flex align-items-center">
+          <img src="${p.imagen}" width="80" class="me-3 rounded">
+          <div> 
+            <h5 class="mb-1">${p.nombre}</h5>
+            <p class="mb-0">$${p.precio} x ${p.cantidad}</p>
+          </div>
+        </div>
+        <button class="btn btn-danger btn-sm" onclick="eliminarDelCarrito('${p.id}')">X</button>
+      </div>
+    `).join('');
+  }
+
+  // Mostrar carrito al cargar la página
+  document.addEventListener('DOMContentLoaded', actualizarCarrito);
+
+  function showToast(msg, type = "success") {
+        const container = document.getElementById("toastZone");
+
+        const toastEl = document.createElement("div");
+        toastEl.className = `toast align-items-center text-bg-${type} border-0`;
+        toastEl.setAttribute("role", "alert");
+        toastEl.setAttribute("aria-live", "assertive");
+        toastEl.setAttribute("aria-atomic", "true");
+
+        toastEl.innerHTML = `
+            <div class="d-flex my-5">
+                <div class="toast-body">${msg}</div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto"
+                    data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+        `;
+
+        container.appendChild(toastEl);
+
+        const toast = new bootstrap.Toast(toastEl);
+        toast.show();
+
+        // remover después de 4 segundos
+        setTimeout(() => toastEl.remove(), 2000);
+    }
+</script>
+
+    <section id="productos" class="container my-5 ab-5" style="margin-bottom: 4rem;">
+        <div id="productos-container" class="row g-3 mb-3" style="background-color: #f0f0f0; border-radius: 16px;"></div>
+    </section>
+    
+    <!-- Modal Contacto -->
+    <div class="modal fade" id="modalCont">
         <div class="modal-dialog">
             <div class="modal-content">
 
@@ -582,19 +1129,25 @@
                 <div class="modal-body">
                     <form>
                         <div class="mb-3">
-                            <label for="nombre" class="form-label">Nombre</label>
-                            <input type="text" class="form-control" id="nombre" placeholder="Tu nombre">
+                            <h4 class="modal-title" style="color: #122C4F;"><strong>¡Contáctanos!</strong></h4>
+                            <p>Para dudas, reclamaciones o soporte técnico sobre la PWA o sus pedidos, puede contactarnos a
+                            través de:</p>
+                            <ul>
+                                <li><strong>Correo Electrónico:</strong> gadget.gomx@gmail.com</li>
+                                <li class="mt-1"><strong>WhatsApp/Teléfono:</strong> (+52) 44-38-38-13-50</li>
+                            </ul>
                         </div>
                         <div class="mb-3">
-                            <label for="correo" class="form-label">Correo</label>
-                            <input type="email" class="form-control" id="correo" placeholder="Tu correo electronico">
+                            <button type="button" class="btn btn-success ms-auto">
+                                <a class="nav-link" href="https://wa.me/message/DUADVHTXENNMC1" target="_blank" rel="noopener noreferrer"><i class="fab fa-whatsapp me-2"></i>WhatsApp</a>
+                            </button>
+                            <button type="button" class="btn btn-ig ms-auto">
+                                <a class="nav-link" href="https://www.instagram.com/gadget_go25?igsh=a3VnMzN0ajIwaDhs" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram me-2"></i>Instagram</a>
+                            </button>
+                            <button type="button" class="btn btn-primary ms-auto">
+                                <a class="nav-link" href="mailto:gadget.gomx@gmail.com" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-envelope me-2"></i>Correo</a>
+                            </button>
                         </div>
-                        <div class="mb-3">
-                            <label for="mensaje" class="form-label">Mensaje</label>
-                            <textarea class="form-control" id="mensaje" rows="3" placeholder="Tu mensaje"></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-primary" data-bs-toggle="tooltip" title="Enviar Formulario">Enviar</button>
-                    </form>
                 </div>
 
                 <!-- Modal footer -->
@@ -704,14 +1257,26 @@
             </div>
         </div>
     </div>
-
-    <script src="./db.js"></script>
-
+    <!--Footer-->
+    <footer id="fter" class="text-white py-3" style="background-color: #122C4F;">
+        <div class="container">
+            <!--Politicas-->
+            <ul class="navbar-nav-ft ms-auto mb-3">
+                <li class="nav-item"><a class="nav-link" href="politicas-devolución.html">Políticas de Devolución</a></li>
+                <li class="nav-item"><a class="nav-link" href="politicas-uso.html">Políticas de Uso</a></li>
+                <li class="nav-item"><a class="nav-link" href="#modal" data-bs-toggle="modal" data-bs-target="#modalCont">Contacto</a></li>
+                <li class="nav-item"><a class="nav-link" href="nosotros.html">Nosotros</a></li>
+            </ul>
+            <p class="text-center mt-2 mb-0">&copy; <strong>Gadget Go</strong> - Todos los derechos reservados</p>
+        </div>
+    </footer>
+    <!-- Firebase -->
     <script type="module">
         import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js';
-        import { getFirestore, doc, getDoc, collection, addDoc, serverTimestamp } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js';
+        import { getFirestore, collection, getDocs, query, orderBy, setDoc, doc, addDoc, serverTimestamp, getDoc, where } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js';
+        import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js';
 
-        // CONFIGURACIÓN DE FIREBASE
+        // Firebase Config
         const firebaseConfig = {
             apiKey: "AIzaSyBg9o3wVZoA26Aob2RnbVPV8vGv4GE44gs",
             authDomain: "primer-proyecto-7b2f4.firebaseapp.com",
@@ -723,205 +1288,180 @@
 
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
+        const auth = getAuth(app);
 
-        // ====================================
-        // INICIALIZAR IndexedDB
-        // ====================================
-        let dbReady = false;
-
-        (async function inicializarDB() {
+        // FUNCIÓN PARA OBTENER ROL
+        async function obtenerRolUsuario(uid) {
             try {
-                await initDB();
-                dbReady = true;
-                console.log('✅ IndexedDB lista para usar en producto.html');
-            } catch (error) {
-                console.error('❌ Error inicializando IndexedDB:', error);
-                dbReady = false;
-            }
-        })();
-
-        // ====================================
-        // FUNCIÓN PARA CARGAR EL PRODUCTO (CON SOPORTE OFFLINE)
-        // ====================================
-        async function cargarProducto() {
-            const hash = window.location.hash;
-            const id = hash ? hash.substring(1) : null;
-
-            console.log("ID del producto:", id);
-
-            const cont = document.getElementById("producto-container");
-
-            if (!id) {
-                cont.innerHTML = `
-                    <div class="alert alert-danger">
-                        <h4>No se especificó un producto</h4>
-                        <p>Por favor, selecciona un producto desde la página principal.</p>
-                        <a href="index.html" class="btn btn-primary mt-2">Volver al inicio</a>
-                    </div>
-                `;
-                return;
-            }
-
-            // Mostrar loader
-            cont.innerHTML = `
-                <div class="text-center py-5">
-                    <div class="spinner-border text-primary" role="status">
-                        <span class="visually-hidden">Cargando...</span>
-                    </div>
-                    <p class="mt-3">Cargando producto...</p>
-                </div>
-            `;
-
-            // ⭐ VERIFICAR CONEXIÓN PRIMERO
-            if (!navigator.onLine) {
-                console.log('📡 Sin conexión, cargando desde IndexedDB...');
-                await cargarProductoOffline(id);
-                return;
-            }
-
-            try {
-                // Intentar cargar desde Firebase
-                const docRef = doc(db, "productos", id);
+                const docRef = doc(db, "usuarios", uid);
                 const docSnap = await getDoc(docRef);
-
-                if (!docSnap.exists()) {
-                    // Si no existe en Firebase, intentar desde IndexedDB
-                    console.log('Producto no encontrado en Firebase, intentando IndexedDB...');
-                    await cargarProductoOffline(id);
-                    return;
-                }
-
-                const prod = { id: docSnap.id, ...docSnap.data() };
                 
-                // ⭐ GUARDAR EN IndexedDB PARA USO OFFLINE
-                if (dbReady) {
-                    try {
-                        await guardarProductoOffline(prod);
-                        console.log('💾 Producto guardado en IndexedDB');
-                    } catch (err) {
-                        console.warn('No se pudo guardar en IndexedDB:', err);
+                if (docSnap.exists()) {
+                    return docSnap.data().rol || "usuario";
+                } else {
+                    console.warn("Usuario no encontrado en Firestore");
+                    return "usuario";
+                }
+            } catch (error) {
+                console.error("Error obteniendo rol:", error);
+                return "usuario";
+            }
+        }
+
+        // AUTH STATE LISTENER
+        onAuthStateChanged(auth, async (user) => {
+            const btnLoginNav = document.getElementById('loginNavBtn');
+            const btnRegisterNav = document.getElementById('registerNavBtn');
+            const btnLogoutNav = document.getElementById('logoutBtn');
+            const navInventario = document.getElementById('navInventario');
+
+            if (user) {
+                console.log("Usuario autenticado:", user.email);
+                
+                const rol = await obtenerRolUsuario(user.uid);
+                console.log("Rol del usuario:", rol);
+                
+                localStorage.setItem('userRole', rol);
+                localStorage.setItem('userEmail', user.email);
+                localStorage.setItem('userId', user.uid);
+
+                if (btnLoginNav) btnLoginNav.style.display = 'none';
+                if (btnRegisterNav) btnRegisterNav.style.display = 'none';
+                if (btnLogoutNav) btnLogoutNav.style.display = 'block';
+
+                // VERIFICAR SI YA SE MOSTRÓ EL TOAST EN ESTA SESIÓN
+                const toastMostrado = sessionStorage.getItem('loginToastShown');
+                
+                if (navInventario) {
+                    if (rol === 'admin') {
+                        navInventario.style.display = 'block';
+                        
+                        // Solo mostrar si NO se ha mostrado antes
+                        if (!toastMostrado) {
+                            showToast(`Bienvenido Admin: ${user.email}`, 'success');
+                            sessionStorage.setItem('loginToastShown', 'true');
+                        }
+                    } else {
+                        navInventario.style.display = 'none';
+                        
+                        // Solo mostrar si NO se ha mostrado antes
+                        if (!toastMostrado) {
+                            showToast(`Bienvenido: ${user.email}`, 'success');
+                            sessionStorage.setItem('loginToastShown', 'true');
+                        }
                     }
                 }
-
-                renderizarProducto(prod);
-
-            } catch (error) {
-                console.error("Error cargando producto desde Firebase:", error);
+            } else {
+                console.log("No hay usuario autenticado");
                 
-                // ⭐ FALLBACK A IndexedDB
-                console.log('📦 Intentando cargar desde IndexedDB...');
-                await cargarProductoOffline(id);
-            }
-        }
-
-        // ====================================
-        // CARGAR PRODUCTO DESDE IndexedDB
-        // ====================================
-        async function cargarProductoOffline(id) {
-            const cont = document.getElementById("producto-container");
-            
-            try {
-                // Esperar a que IndexedDB esté lista
-                if (!dbReady) {
-                    await initDB();
-                    dbReady = true;
-                }
-
-                const producto = await obtenerProductoPorId(id);
-
-                if (producto) {
-                    console.log('📦 Producto cargado desde IndexedDB');
-                    renderizarProducto(producto);
-                    showToast('📡 Modo offline: producto cargado desde caché', 'warning');
-                } else {
-                    cont.innerHTML = `
-                        <div class="alert alert-warning text-center my-5">
-                            <i class="fas fa-wifi-slash fa-3x mb-3"></i>
-                            <h5>Sin conexión</h5>
-                            <p>Este producto no está disponible offline.</p>
-                            <p>Conéctate a internet para verlo.</p>
-                            <a href="index.html" class="btn btn-primary mt-3">Volver al catálogo</a>
-                        </div>
-                    `;
-                }
-            } catch (error) {
-                console.error('Error cargando producto offline:', error);
-                cont.innerHTML = `
-                    <div class="alert alert-danger text-center my-5">
-                        <i class="fas fa-exclamation-triangle fa-3x mb-3"></i>
-                        <h5>Error</h5>
-                        <p>No se pudo cargar el producto</p>
-                        <a href="index.html" class="btn btn-primary mt-3">Volver al catálogo</a>
-                    </div>
-                `;
-            }
-        }
-
-        // ====================================
-        // RENDERIZAR PRODUCTO
-        // ====================================
-        function renderizarProducto(prod) {
-            const cont = document.getElementById("producto-container");
-
-            // Manejo de imágenes
-            let imgSrc = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjQwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCBmaWxsPSIjZTVlN2ViIiB3aWR0aD0iNDAwIiBoZWlnaHQ9IjQwMCIvPjx0ZXh0IGZpbGw9IiM5Y2EzYWYiIGZvbnQtZmFtaWx5PSJzYW5zLXNlcmlmIiBmb250LXNpemU9IjI0IiB4PSI1MCUiIHk9IjUwJSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZG9taW5hbnQtYmFzZWxpbmU9Im1pZGRsZSI+U2luIEltYWdlbjwvdGV4dD48L3N2Zz4=';
-
-            if (Array.isArray(prod.imagenes) && prod.imagenes.length > 0) {
-                const primeraImagen = prod.imagenes[0];
+                // LIMPIAR LA BANDERA AL CERRAR SESIÓN
+                sessionStorage.removeItem('loginToastShown');
                 
-                if (typeof primeraImagen === 'string' && primeraImagen.trim() !== '') {
-                    imgSrc = primeraImagen;
-                } else if (typeof primeraImagen === 'object' && primeraImagen.dataURL) {
-                    imgSrc = primeraImagen.dataURL;
-                }
+                localStorage.removeItem('userRole');
+                localStorage.removeItem('userEmail');
+                localStorage.removeItem('userId');
+
+                if (btnLoginNav) btnLoginNav.style.display = 'block';
+                if (btnRegisterNav) btnRegisterNav.style.display = 'block';
+                if (btnLogoutNav) btnLogoutNav.style.display = 'none';
+                if (navInventario) navInventario.style.display = 'none';
             }
+        });
 
-            // Renderizar producto
-            cont.innerHTML = `
-                <div class="card shadow p-5">
-                    <div class="row">
-                        <div class="col-md-6 text-center">
-                            <img src="${imgSrc}" class="img-fluid rounded" alt="${prod.nombre}" style="max-height: 500px; object-fit: cover;">
-                        </div>
-                        <div class="col-md-6 py-2">
-                            <h2>${prod.nombre}</h2>
-                            <h4 class="text-success mb-3" style="font-size: 2rem;"><strong>$${Number(prod.precio).toLocaleString('es-MX', { minimumFractionDigits: 2 })}</strong></h4>
-                            
-                            <div class="mb-3">
-                                <p class="mb-1"><strong>Modelo:</strong> ${prod.modelo || 'N/A'}</p>
-                                <p class="mb-1"><strong>Estado:</strong> <span class="badge bg-info">${prod.estado || 'N/A'}</span></p>
-                                <p class="mb-1"><strong>Disponibles:</strong> ${prod.stock || '0'} unidades</p>
-                            </div>
+        // LOGIN
+        document.addEventListener('DOMContentLoaded', () => {
+            const loginBtn = document.getElementById('loginBtn');
+            const inputUser = document.getElementById('user');
+            const inputPass = document.getElementById('pass');
+            const errorMsg = document.getElementById('error-msg');
+            const logoutBtn = document.getElementById('logoutBtn');
 
-                            <h5>Características:</h5>
-                            <p>${prod.descripcion || "Sin descripción"}</p>
-                            
-                            <button class="btn btn-primary w-100 mt-3" id="btnAgregar">
-                                <i class="fas fa-cart-plus me-2"></i>Agregar al carrito
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            `;
+            if (loginBtn && inputUser && inputPass) {
+                loginBtn.addEventListener('click', async (ev) => {
+                    ev.preventDefault();
+                    const email = inputUser.value.trim();
+                    const pass = inputPass.value;
 
-            // Event listener para agregar al carrito
-            const btnAgregar = document.getElementById('btnAgregar');
-            if (btnAgregar) {
-                btnAgregar.addEventListener('click', () => {
-                    agregarAlCarrito({
-                        id: prod.id,
-                        nombre: prod.nombre,
-                        precio: prod.precio,
-                        cantidad: 1,
-                        imagen: imgSrc
-                    });
+                    if (!email || !pass) {
+                        if (errorMsg) errorMsg.textContent = 'Completa todos los campos';
+                        return;
+                    }
+
+                    try {
+                        await signInWithEmailAndPassword(auth, email, pass);
+                        if (errorMsg) errorMsg.textContent = '';
+                        const modalEl = document.getElementById('loginModal');
+                        if (modalEl) {
+                            const bs = bootstrap.Modal.getInstance(modalEl) || new bootstrap.Modal(modalEl);
+                            bs.hide();
+                        }
+                    } catch (e) {
+                        console.error('Login error:', e);
+                        if (errorMsg) errorMsg.textContent = 'Credenciales inválidas';
+                    }
                 });
             }
-        }
 
-        // ====================================
+            if (logoutBtn) {
+                logoutBtn.addEventListener('click', async (ev) => {
+                    ev.preventDefault();
+                    try {
+                        await signOut(auth);
+                        showToast('Sesión cerrada', 'primary');
+                    } catch (e) {
+                        console.error('Logout error', e);
+                    }
+                });
+            }
+
+            // REGISTRO
+            const registerBtn = document.getElementById('registerBtn');
+            const regEmail = document.getElementById('regEmail');
+            const regPass = document.getElementById('regPass');
+            const regError = document.getElementById('regError');
+
+            if (registerBtn) {
+                registerBtn.addEventListener('click', async () => {
+                    const email = regEmail.value.trim();
+                    const pass = regPass.value.trim();
+
+                    if (!email || !pass) {
+                        regError.textContent = "Completa todos los campos";
+                        return;
+                    }
+
+                    try {
+                        const userCredential = await createUserWithEmailAndPassword(auth, email, pass);
+                        const user = userCredential.user;
+
+                        await setDoc(doc(db, "usuarios", user.uid), {
+                            email: email,
+                            rol: "usuario",
+                            fechaCreacion: new Date().toISOString()
+                        });
+
+                        regError.textContent = "";
+
+                        const modalEl = document.getElementById('registerModal');
+                        const modal = bootstrap.Modal.getInstance(modalEl) || new bootstrap.Modal(modalEl);
+                        modal.hide();
+
+                        showToast("Cuenta creada con éxito");
+                    } catch (e) {
+                        console.error(e);
+                        if (e.code === "auth/email-already-in-use") {
+                            regError.textContent = "Este correo ya está registrado";
+                        } else if (e.code === "auth/weak-password") {
+                            regError.textContent = "La contraseña debe tener al menos 6 caracteres";
+                        } else {
+                            regError.textContent = "Error al registrar";
+                        }
+                    }
+                });
+            }
+        });
+
         // ACTUALIZAR CARRITO
-        // ====================================
         window.actualizarCarrito = function() {
             const contenedor = document.getElementById('carrito-container');
             const contador = document.getElementById('contador-carrito');
@@ -963,9 +1503,7 @@
             `).join('');
         }
 
-        // ====================================
         // ABRIR CHECKOUT
-        // ====================================
         window.abrirCheckout = function() {
             const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
             
@@ -979,6 +1517,8 @@
                 showToast('Debes iniciar sesión para realizar una compra', 'warning');
                 const carritoModal = bootstrap.Modal.getInstance(document.getElementById('carritoModal'));
                 if (carritoModal) carritoModal.hide();
+                const loginModal = new bootstrap.Modal(document.getElementById('loginModal'));
+                loginModal.show();
                 return;
             }
 
@@ -1001,9 +1541,7 @@
             checkoutModal.show();
         }
 
-        // ====================================
         // CONFIRMAR PEDIDO
-        // ====================================
         function inicializarCheckout() {
             const checkoutForm = document.getElementById('checkoutForm');
             
@@ -1046,35 +1584,10 @@
                         codigoPostal: document.getElementById('cpEnvio').value,
                         notas: document.getElementById('notasEnvio').value
                     },
-                    fecha: new Date().toISOString()
+                    fecha: serverTimestamp()
                 };
 
-                // ⭐ VERIFICAR CONEXIÓN
-                if (!navigator.onLine) {
-                    try {
-                        await guardarPedidoOffline(pedido);
-                        
-                        localStorage.removeItem('carrito');
-                        actualizarCarrito();
-
-                        const checkoutModal = bootstrap.Modal.getInstance(document.getElementById('checkoutModal'));
-                        if (checkoutModal) checkoutModal.hide();
-
-                        document.getElementById('checkoutForm').reset();
-
-                        showToast('📡 Pedido guardado offline. Se sincronizará cuando haya conexión', 'warning');
-                    } catch (error) {
-                        console.error('Error guardando pedido offline:', error);
-                        showToast('Error guardando el pedido: ' + error.message, 'danger');
-                    }
-                    
-                    btnConfirmar.disabled = false;
-                    btnConfirmar.innerHTML = '<i class="fas fa-check-circle me-2"></i>Confirmar Pedido';
-                    return;
-                }
-
                 try {
-                    pedido.fecha = serverTimestamp();
                     const docRef = await addDoc(collection(db, 'pedidos'), pedido);
                     console.log('✅ Pedido creado:', docRef.id);
 
@@ -1100,110 +1613,337 @@
             console.log('Event listener del checkout agregado correctamente');
         }
 
-        // ====================================
-        // MONITOREO DE CONEXIÓN
-        // ====================================
-        monitorearConexion(
-            // Online
-            () => {
-                showToast('Conexión restaurada', 'success');
-                // Recargar el producto desde Firebase
-                cargarProducto();
-            },
-            // Offline
-            () => {
-                showToast('Sin conexión - Modo offline activado', 'warning');
-            }
-        );
+        // Llamar cuando el DOM esté listo
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', inicializarCheckout);
+        } else {
+            inicializarCheckout();
+        }
+         // INICIAR
+            cargarProductos();
 
-        // INICIALIZAR
-        cargarProducto();
-        inicializarCheckout();
+        // Lee y COMPRIME múltiples imágenes
+        function readFilesAsDataURLs(fileList, maxSize = 512) {
+            const files = Array.from(fileList || []);
+
+            return Promise.all(files.map(file => compressImage(file, maxSize)));
+        }
+        // Funcion para comprimir imagenes de los productos
+        // Comprime una sola imagen
+        function compressImage(file, maxSize = 512) {
+            return new Promise((resolve, reject) => {
+
+                const reader = new FileReader();
+                reader.onload = e => {
+
+                    const img = new Image();
+                    img.onload = () => {
+                        const canvas = document.createElement("canvas");
+
+                        // Obtener tamaño original
+                        let width = img.width;
+                        let height = img.height;
+
+                        // Redimensionar si es necesario
+                        if (width > height) {
+                            if (width > maxSize) {
+                                height *= maxSize / width;
+                                width = maxSize;
+                            }
+                        } else {
+                            if (height > maxSize) {
+                                width *= maxSize / height;
+                                height = maxSize;
+                            }
+                        }
+
+                        canvas.width = width;
+                        canvas.height = height;
+
+                        const ctx = canvas.getContext("2d");
+                        ctx.drawImage(img, 0, 0, width, height);
+
+                        // Comprimir como JPG calidad 0.75
+                        const dataURL = canvas.toDataURL("image/jpeg", 0.75);
+
+                        resolve({
+                            name: file.name,
+                            type: "image/jpeg",
+                            dataURL: dataURL
+                        });
+                    };
+
+                    img.onerror = reject;
+                    img.src = e.target.result;
+                };
+
+                reader.onerror = reject;
+                reader.readAsDataURL(file);
+            });
+        }
 
     </script>
-    <script>
-    // ==========================================
-    // SISTEMA DE TRANSICIONES UNIVERSAL
-    // ==========================================
-    (function() {
-        'use strict';
-        
-        // Prevenir animación en recarga
-        if (performance.navigation.type === 1) {
-            document.body.style.animation = 'none';
-        }
-        
-        // Configuración
-        const config = {
-            animationClass: 'zoom-out', // Puedes cambiar entre 'fade-out', 'slide-out', 'zoom-out'
-            duration: 300,
-            ignoreSelectors: [
-                '[data-bs-toggle]',
-                '[href="#"]',
-                '[href*="#modal"]',
-                '[onclick]',
-                '.no-transition'
-            ]
-        };
-        
-        // Función para verificar si debe ignorarse
-        function shouldIgnoreLink(link) {
-            return config.ignoreSelectors.some(selector => {
-                return link.matches(selector) || link.closest(selector);
-            });
-        }
-        
-        // Función de transición
-        function transitionToPage(url) {
-            document.body.classList.add(config.animationClass);
-            setTimeout(() => {
-                window.location.href = url;
-            }, config.duration);
-        }
-        
-        // Inicializar cuando el DOM esté listo
-        document.addEventListener('DOMContentLoaded', function() {
-            // Interceptar todos los enlaces internos
-            document.addEventListener('click', function(e) {
-                const link = e.target.closest('a');
-                
-                if (!link) return;
-                
-                const href = link.getAttribute('href');
-                
-                // Verificar si es un enlace válido
-                if (!href || href.startsWith('http') || href.startsWith('mailto:') || href.startsWith('tel:') || href.startsWith('https://wa.me')) {
-                    return;
-                }
-                
-                // Ignorar ciertos enlaces
-                if (shouldIgnoreLink(link)) {
-                    return;
-                }
-                
-                // Aplicar transición
+
+    <!--Boton para instalar PWA-->
+    <button id="btnInstall" hidden>Instalar app</button>
+    
+    <!-- Boton para subir al Header -->
+    <button id="btnUp">
+        <a href="#" class="nav-link"><i class="fa-solid fa-angle-up"></i></a>
+    </button>
+
+        <script>
+        // Registrar Service Worker
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./sworker.js')
+                    .then(reg => console.log('SW registrado:', reg.scope))
+                    .catch(err => console.warn('SW fallo:', err));
+                });
+            }
+
+            // Manejo del "beforeinstallprompt" para mostrar botón de instalar
+            let deferredPrompt = null;
+            window.addEventListener('beforeinstallprompt', (e) => {
                 e.preventDefault();
-                transitionToPage(href);
+                deferredPrompt = e;
+                const btn = document.getElementById('btnInstall');
+                if (btn) btn.hidden = false;
             });
+
+            // Click en el botón para lanzar el prompt
+            document.addEventListener('click', async (e) => {
+                if (e.target && e.target.id === 'btnInstall') {
+                    if (!deferredPrompt) return;
+                    e.target.disabled = true;
+                    deferredPrompt.prompt();
+                    const { outcome } = await deferredPrompt.userChoice;
+                    console.log('Instalación:', outcome);
+                    deferredPrompt = null;
+                    e.target.hidden = true;
+                }
+            });
+
+            // Evento cuando la app fue instalada
+            window.addEventListener('appinstalled', () => {
+                console.log('PWA instalada');
+                const btn = document.getElementById('btnInstall');
+                if (btn) btn.hidden = true;
+            });
+
+           
+        </script>
+        <script>
+
+        // SLIDER DESLIZABLE AUTOMÁTICO - CORREGIDO
+        document.addEventListener('DOMContentLoaded', function() {
+            const track = document.getElementById('sliderTrack');
+            const slides = document.querySelectorAll('.slider-slide');
+            const prevBtn = document.getElementById('sliderPrev');
+            const nextBtn = document.getElementById('sliderNext');
+            const dotsContainer = document.getElementById('sliderDots');
             
-            // Smooth scroll para anclas
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function(e) {
-                    const href = this.getAttribute('href');
-                    if (href !== '#' && !this.getAttribute('data-bs-toggle')) {
-                        e.preventDefault();
-                        const target = document.querySelector(href);
-                        if (target) {
-                            target.scrollIntoView({
-                                behavior: 'smooth',
-                                block: 'start'
-                            });
-                        }
+            // Verificar que existen los elementos
+            if (!track || !slides.length || !prevBtn || !nextBtn || !dotsContainer) {
+                console.error('No se encontraron los elementos del slider');
+                return;
+            }
+            
+            let currentSlide = 0;
+            const totalSlides = slides.length;
+            let autoplayInterval;
+            let isTransitioning = false;
+
+            // Crear indicadores (dots)
+            function createDots() {
+                dotsContainer.innerHTML = ''; // Limpiar dots existentes
+                for (let i = 0; i < totalSlides; i++) {
+                    const dot = document.createElement('div');
+                    dot.className = 'slider-dot';
+                    if (i === 0) dot.classList.add('active');
+                    dot.addEventListener('click', () => goToSlide(i));
+                    dotsContainer.appendChild(dot);
+                }
+            }
+
+            // Ir a un slide específico
+            function goToSlide(index) {
+                if (isTransitioning) return;
+                
+                isTransitioning = true;
+                currentSlide = index;
+                
+                // CÁLCULO CORRECTO: 100% por cada slide
+                const offset = -currentSlide * 100;
+                track.style.transform = `translateX(${offset}%)`;
+                
+                // Actualizar dots
+                updateDots();
+                
+                // Resetear autoplay
+                resetAutoplay();
+                
+                setTimeout(() => {
+                    isTransitioning = false;
+                }, 600);
+            }
+
+            // Actualizar indicadores activos
+            function updateDots() {
+                const dots = document.querySelectorAll('.slider-dot');
+                dots.forEach((dot, index) => {
+                    if (index === currentSlide) {
+                        dot.classList.add('active');
+                    } else {
+                        dot.classList.remove('active');
                     }
                 });
+            }
+
+            // Slide anterior
+            function prevSlide() {
+                const newIndex = currentSlide === 0 ? totalSlides - 1 : currentSlide - 1;
+                goToSlide(newIndex);
+            }
+
+            // Slide siguiente
+            function nextSlide() {
+                const newIndex = currentSlide === totalSlides - 1 ? 0 : currentSlide + 1;
+                goToSlide(newIndex);
+            }
+
+            // Autoplay
+            function startAutoplay() {
+                autoplayInterval = setInterval(() => {
+                    nextSlide();
+                }, 5000); // Cambiar cada 5 segundos
+            }
+
+            function stopAutoplay() {
+                clearInterval(autoplayInterval);
+            }
+
+            function resetAutoplay() {
+                stopAutoplay();
+                startAutoplay();
+            }
+
+            // Event Listeners para botones
+            prevBtn.addEventListener('click', prevSlide);
+            nextBtn.addEventListener('click', nextSlide);
+
+            // Pausar al pasar el mouse
+            track.addEventListener('mouseenter', stopAutoplay);
+            track.addEventListener('mouseleave', startAutoplay);
+
+            // Soporte táctil (swipe)
+            let touchStartX = 0;
+            let touchEndX = 0;
+
+            track.addEventListener('touchstart', (e) => {
+                touchStartX = e.changedTouches[0].screenX;
+                stopAutoplay();
+            }, { passive: true });
+
+            track.addEventListener('touchend', (e) => {
+                touchEndX = e.changedTouches[0].screenX;
+                handleSwipe();
+                startAutoplay();
+            }, { passive: true });
+
+            function handleSwipe() {
+                const swipeThreshold = 50;
+                const diff = touchStartX - touchEndX;
+
+                if (Math.abs(diff) > swipeThreshold) {
+                    if (diff > 0) {
+                        nextSlide(); // Swipe left
+                    } else {
+                        prevSlide(); // Swipe right
+                    }
+                }
+            }
+
+            // Navegación con teclado
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'ArrowLeft') {
+                    prevSlide();
+                } else if (e.key === 'ArrowRight') {
+                    nextSlide();
+                }
+            });
+
+            // Reajustar en cambio de orientación o resize
+            let resizeTimer;
+            window.addEventListener('resize', () => {
+                clearTimeout(resizeTimer);
+                resizeTimer = setTimeout(() => {
+                    // Reposicionar al slide actual sin animación
+                    track.style.transition = 'none';
+                    const offset = -currentSlide * 100;
+                    track.style.transform = `translateX(${offset}%)`;
+                    
+                    // Restaurar transición después de un frame
+                    requestAnimationFrame(() => {
+                        track.style.transition = 'transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+                    });
+                }, 250);
+            });
+
+            // Inicializar
+            createDots();
+            startAutoplay();
+
+            console.log('Slider inicializado correctamente');
+        });
+        </script>
+        <script>
+    // Mostrar/Ocultar botón "Subir" según scroll y proximidad al footer
+    document.addEventListener('DOMContentLoaded', function() {
+        const btnUp = document.getElementById('btnUp');
+        const footer = document.querySelector('footer');
+        
+        if (!btnUp || !footer) return;
+        
+        // Inicialmente oculto
+        btnUp.style.opacity = '0';
+        btnUp.style.pointerEvents = 'none';
+        
+        window.addEventListener('scroll', function() {
+            const scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
+            const footerPosition = footer.offsetTop;
+            const windowHeight = window.innerHeight;
+            const documentHeight = document.documentElement.scrollHeight;
+            
+            // Mostrar botón si se ha hecho scroll hacia abajo (más de 300px)
+            if (scrollPosition > 300) {
+                // Verificar si el usuario está cerca del footer
+                const distanceToFooter = footerPosition - (scrollPosition + windowHeight);
+                
+                // Ocultar si está a menos de 100px del footer o si llegó al final
+                if (distanceToFooter < 100 || (scrollPosition + windowHeight) >= documentHeight - 50) {
+                    btnUp.style.opacity = '0';
+                    btnUp.style.pointerEvents = 'none';
+                } else {
+                    btnUp.style.opacity = '1';
+                    btnUp.style.pointerEvents = 'auto';
+                }
+            } else {
+                // Ocultar si está en la parte superior
+                btnUp.style.opacity = '0';
+                btnUp.style.pointerEvents = 'none';
+            }
+        });
+        
+        // Smooth scroll al hacer clic
+        btnUp.addEventListener('click', function(e) {
+            e.preventDefault();
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
             });
         });
-    })();
+    });
     </script>
 </body>
 </html>
