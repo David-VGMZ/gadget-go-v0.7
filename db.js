@@ -20,26 +20,26 @@ function initDB() {
 
         request.onsuccess = () => {
             db = request.result;
-            console.log('✅ IndexedDB inicializada correctamente');
+            console.log('IndexedDB inicializada correctamente');
             resolve(db);
         };
 
         request.onupgradeneeded = (event) => {
             db = event.target.result;
-            console.log('🔄 Actualizando estructura de IndexedDB...');
+            console.log('Actualizando estructura de IndexedDB...');
 
             // Store de Productos
             if (!db.objectStoreNames.contains(STORE_PRODUCTOS)) {
                 const productosStore = db.createObjectStore(STORE_PRODUCTOS, { keyPath: 'id' });
                 productosStore.createIndex('categoria', 'categoria', { unique: false });
                 productosStore.createIndex('nombre', 'nombre', { unique: false });
-                console.log('✅ Store "productos" creado');
+                console.log('Store "productos" creado');
             }
 
             // Store de Carrito
             if (!db.objectStoreNames.contains(STORE_CARRITO)) {
                 db.createObjectStore(STORE_CARRITO, { keyPath: 'id' });
-                console.log('✅ Store "carrito" creado');
+                console.log('Store "carrito" creado');
             }
 
             // Store de Pedidos (para sincronizar cuando vuelva online)
@@ -47,7 +47,7 @@ function initDB() {
                 const pedidosStore = db.createObjectStore(STORE_PEDIDOS, { keyPath: 'id', autoIncrement: true });
                 pedidosStore.createIndex('sincronizado', 'sincronizado', { unique: false });
                 pedidosStore.createIndex('fecha', 'fecha', { unique: false });
-                console.log('✅ Store "pedidos" creado');
+                console.log('Store "pedidos" creado');
             }
         };
     });
@@ -100,12 +100,12 @@ async function guardarProductosOffline(productos) {
         });
 
         transaction.oncomplete = () => {
-            console.log(`✅ ${productos.length} productos guardados offline`);
+            console.log(`${productos.length} productos guardados offline`);
             resolve();
         };
 
         transaction.onerror = () => {
-            console.error('❌ Error guardando productos:', transaction.error);
+            console.error('Error guardando productos:', transaction.error);
             reject(transaction.error);
         };
     });
@@ -126,7 +126,7 @@ async function obtenerProductosOffline() {
         };
 
         request.onerror = () => {
-            console.error('❌ Error obteniendo productos offline:', request.error);
+            console.error('Error obteniendo productos offline:', request.error);
             reject(request.error);
         };
     });
@@ -148,7 +148,7 @@ async function obtenerProductosPorCategoria(categoria) {
         };
 
         request.onerror = () => {
-            console.error('❌ Error filtrando productos:', request.error);
+            console.error('Error filtrando productos:', request.error);
             reject(request.error);
         };
     });
@@ -168,7 +168,7 @@ async function obtenerProductoPorId(id) {
         };
 
         request.onerror = () => {
-            console.error('❌ Error obteniendo producto:', request.error);
+            console.error('Error obteniendo producto:', request.error);
             reject(request.error);
         };
     });
@@ -195,12 +195,12 @@ async function guardarCarritoOffline(carrito) {
         });
 
         transaction.oncomplete = () => {
-            console.log('✅ Carrito guardado en IndexedDB');
+            console.log('Carrito guardado en IndexedDB');
             resolve();
         };
 
         transaction.onerror = () => {
-            console.error('❌ Error guardando carrito:', transaction.error);
+            console.error('Error guardando carrito:', transaction.error);
             reject(transaction.error);
         };
     });
@@ -221,7 +221,7 @@ async function obtenerCarritoOffline() {
         };
 
         request.onerror = () => {
-            console.error('❌ Error obteniendo carrito:', request.error);
+            console.error('Error obteniendo carrito:', request.error);
             reject(request.error);
         };
     });
@@ -248,12 +248,12 @@ async function guardarPedidoOffline(pedido) {
         const request = store.add(pedidoOffline);
 
         request.onsuccess = () => {
-            console.log('✅ Pedido guardado offline, se sincronizará cuando haya conexión');
+            console.log('Pedido guardado offline, se sincronizará cuando haya conexión');
             resolve(request.result);
         };
 
         request.onerror = () => {
-            console.error('❌ Error guardando pedido offline:', request.error);
+            console.error('Error guardando pedido offline:', request.error);
             reject(request.error);
         };
     });
@@ -270,12 +270,12 @@ async function obtenerPedidosNoSincronizados() {
         const request = index.getAll(false);
 
         request.onsuccess = () => {
-            console.log(`📤 ${request.result.length} pedidos pendientes de sincronización`);
+            console.log(`${request.result.length} pedidos pendientes de sincronización`);
             resolve(request.result);
         };
 
         request.onerror = () => {
-            console.error('❌ Error obteniendo pedidos no sincronizados:', request.error);
+            console.error('Error obteniendo pedidos no sincronizados:', request.error);
             reject(request.error);
         };
     });
@@ -300,20 +300,17 @@ async function marcarPedidoSincronizado(id) {
         };
 
         transaction.oncomplete = () => {
-            console.log(`✅ Pedido ${id} marcado como sincronizado`);
+            console.log(`Pedido ${id} marcado como sincronizado`);
             resolve();
         };
 
         transaction.onerror = () => {
-            console.error('❌ Error marcando pedido sincronizado:', transaction.error);
+            console.error('Error marcando pedido sincronizado:', transaction.error);
             reject(transaction.error);
         };
     });
 }
-
-// ============================================
 // UTILIDADES
-// ============================================
 
 // Verificar si hay conexión a internet
 function estaOnline() {
@@ -354,3 +351,4 @@ if (typeof module !== 'undefined' && module.exports) {
         monitorearConexion
     };
 }
+
