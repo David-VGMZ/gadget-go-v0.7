@@ -742,7 +742,7 @@
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                         Cancelar
                     </button>
-                    <button type="submit" form="checkoutForm" class="btn btn-success" id="btnConfirmarPedido">
+                    <button type="button" class="btn btn-success" id="btnConfirmarPedido" onclick="confirmarPedido(event)">
                         <i class="fas fa-check-circle me-2"></i>Confirmar Pedido
                     </button>
                 </div>
@@ -769,6 +769,13 @@
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
         const auth = getAuth(app);
+
+            // ✅ HACER DISPONIBLE GLOBALMENTE
+            window.firebaseDB = db;
+            window.firebaseAuth = auth;
+            window.addDocFirebase = addDoc;
+            window.collectionFirebase = collection;
+            window.serverTimestampFirebase = serverTimestamp;
 
         // ========================================
         // FUNCIÓN PARA OBTENER ROL
@@ -1162,6 +1169,200 @@
     window.addEventListener('online', actualizarEstadoConexion);
     window.addEventListener('offline', actualizarEstadoConexion);
     document.addEventListener('DOMContentLoaded', actualizarEstadoConexion);
+    </script>
+    <script>
+        // ✅ FUNCIÓN GLOBAL PARA CONFIRMAR PEDIDO
+        window.confirmarPedido = async function(e) {
+            if (e) e.preventDefault();
+            
+            console.log('🚀 CONFIRMAR PEDIDO ACTIVADO');
+            
+            const btnConfirmar = document.getElementById('btnConfirmarPedido');
+            if (!btnConfirmar) {
+                console.error('❌ Botón no encontrado');
+                return;
+            }
+            
+            btnConfirmar.disabled = true;
+            btnConfirmar.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Procesando...';
+
+            const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+            const userId = localStorage.getItem('userId');
+            const userEmail = localStorage.getItem('userEmail');
+
+            console.log('📦 Carrito:', carrito);
+            console.log('👤 Usuario:', userId, userEmail);
+
+            if (!userId || carrito.length === 0) {
+                showToast('Error: no hay usuario o carrito vacío', 'danger');
+                btnConfirmar.disabled = false;
+                btnConfirmar.innerHTML = '<i class="fas fa-check-circle me-2"></i>Confirmar Pedido';
+                return;
+            }
+
+            const total = carrito.reduce((sum, p) => sum + (p.precio * p.cantidad), 0);
+
+            const pedido = {
+                userId: userId,
+                userEmail: userEmail,
+                productos: carrito,
+                total: total,
+                estado: 'pendiente',
+                datosEnvio: {
+                    nombre: document.getElementById('nombreEnvio').value,
+                    telefono: document.getElementById('telefonoEnvio').value,
+                    direccion: document.getElementById('direccionEnvio').value,
+                    ciudad: document.getElementById('ciudadEnvio').value,
+                    codigoPostal: document.getElementById('cpEnvio').value,
+                    notas: document.getElementById('notasEnvio').value
+                },
+                fecha: new Date().toISOString()
+            };
+
+            console.log('📝 Pedido a enviar:', pedido);
+
+            // Verificar si hay conexión
+            if (!navigator.onLine) {
+                console.log('📱 SIN CONEXIÓN - Guardando offline');
+                try {
+                    if (typeof offlineDB === 'undefined') {
+                        throw new Error('offlineDB no está disponible');
+                    }
+                    
+                    const id = await offlineDB.guardarPedido(pedido);
+                    console.log('✅ Pedido guardado offline:', id);
+
+                    localStorage.removeItem('carrito');
+                    actualizarCarrito();
+
+                    // ✅ CERRAR MODAL DE FORMA SEGURA
+                    const checkoutModal = bootstrap.Modal.getInstance(document.getElementById('checkoutModal'));
+                    if (checkoutModal) checkoutModal.hide();
+
+                    // ✅ RESET SEGURO
+                    setTimeout(() => {
+                        const form = document.getElementById('checkoutForm');
+                        if (form) form.reset();
+                    }, 500);
+
+                    showToast('⚠️ Pedido guardado. Se enviará cuando tengas conexión', 'warning');
+
+                    if ('serviceWorker' in navigator && 'SyncManager' in window) {
+                        try {
+                            const registration = await navigator.serviceWorker.ready;
+                            await registration.sync.register('sync-pedidos');
+                            console.log('🔄 Background sync registrado');
+                        } catch (syncError) {
+                            console.log('⚠️ Background sync no disponible:', syncError);
+                        }
+                    }
+
+                    setTimeout(() => {
+                        window.location.href = 'perfil.html';
+                    }, 2000);
+
+                } catch (error) {
+                    console.error('❌ Error guardando pedido offline:', error);
+                    showToast('Error al guardar el pedido: ' + error.message, 'danger');
+                    
+                    btnConfirmar.disabled = false;
+                    btnConfirmar.innerHTML = '<i class="fas fa-check-circle me-2"></i>Confirmar Pedido';
+                }
+                
+                return;
+            }
+
+            // Hay conexión, enviar a Firestore
+            console.log('🌐 CON CONEXIÓN - Enviando a Firestore');
+            try {
+                if (!window.firebaseDB || !window.addDocFirebase || !window.collectionFirebase || !window.serverTimestampFirebase) {
+                    throw new Error('Firebase no está disponible. Recarga la página.');
+                }
+                
+                const docRef = await window.addDocFirebase(
+                    window.collectionFirebase(window.firebaseDB, 'pedidos'), 
+                    {
+                        ...pedido,
+                        fecha: window.serverTimestampFirebase()
+                    }
+                );
+                console.log('✅ Pedido creado online:', docRef.id);
+
+                localStorage.removeItem('carrito');
+                actualizarCarrito();
+
+                // ✅ CERRAR MODAL DE FORMA SEGURA
+                const checkoutModal = bootstrap.Modal.getInstance(document.getElementById('checkoutModal'));
+                if (checkoutModal) checkoutModal.hide();
+
+                // ✅ RESET SEGURO
+                setTimeout(() => {
+                    const form = document.getElementById('checkoutForm');
+                    if (form) form.reset();
+                }, 500);
+
+                showToast('¡Pedido realizado con éxito!', 'success');
+
+                setTimeout(() => {
+                    window.location.href = 'perfil.html';
+                }, 2000);
+
+            } catch (error) {
+                console.error('❌ Error creando pedido online:', error);
+                
+                // Si falla online, intentar guardar offline
+                try {
+                    if (typeof offlineDB !== 'undefined') {
+                        const id = await offlineDB.guardarPedido(pedido);
+                        console.log('📱 Pedido guardado offline por error de conexión:', id);
+                        
+                        localStorage.removeItem('carrito');
+                        actualizarCarrito();
+
+                        // ✅ CERRAR MODAL DE FORMA SEGURA
+                        const checkoutModal = bootstrap.Modal.getInstance(document.getElementById('checkoutModal'));
+                        if (checkoutModal) checkoutModal.hide();
+
+                        // ✅ RESET SEGURO
+                        setTimeout(() => {
+                            const form = document.getElementById('checkoutForm');
+                            if (form) form.reset();
+                        }, 500);
+                        
+                        showToast('⚠️ Error de conexión. Pedido guardado localmente', 'warning');
+                        
+                        setTimeout(() => {
+                            window.location.href = 'perfil.html';
+                        }, 2000);
+                    } else {
+                        throw new Error('No se pudo guardar offline');
+                    }
+                } catch (offlineError) {
+                    console.error('❌ Error guardando offline:', offlineError);
+                    showToast('Error al procesar el pedido: ' + error.message, 'danger');
+                    
+                    btnConfirmar.disabled = false;
+                    btnConfirmar.innerHTML = '<i class="fas fa-check-circle me-2"></i>Confirmar Pedido';
+                }
+            }
+        };
+        
+        // ✅ REGISTRAR EVENTO CUANDO EL MODAL SE MUESTRA
+        document.addEventListener('DOMContentLoaded', () => {
+            const checkoutModal = document.getElementById('checkoutModal');
+            
+            if (checkoutModal) {
+                checkoutModal.addEventListener('shown.bs.modal', function () {
+                    console.log('✅ Modal de checkout abierto');
+                    
+                    const form = document.getElementById('checkoutForm');
+                    if (form) {
+                        form.onsubmit = window.confirmarPedido;
+                        console.log('✅ Evento submit registrado');
+                    }
+                });
+            }
+        });
     </script>
 </body>
 </html>
