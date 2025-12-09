@@ -1,4 +1,4 @@
-const CACHE_NAME = 'gadget-go-v1';
+const CACHE_NAME = 'gadget-go-v1.0';
 
 const CRITICAL_URLS = [
   './',
