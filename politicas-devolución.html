@@ -231,7 +231,7 @@
         }
 
         .badge {
-            padding: 0.5rem 1rem;
+            padding: 0.3rem 1rem;
             border-radius: 6px;
             font-weight: 600;
         }
@@ -542,16 +542,12 @@
 
         .slider-container {
             position: relative;
-            width: 95%;
             max-width: 1400px;
-            margin: 2rem auto;
             overflow: hidden;
-            border-radius: 15px;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
         }
 
         .slider-wrapper {
-            width: 100%;
+            width: 101%;
             overflow: hidden;
             position: relative;
         }
@@ -715,12 +711,12 @@
         /* Móviles */
         @media (max-width: 576px) {
             .slider-container {
-                width: 92%;
+                width: 100%;
                 margin: 0.5rem auto;
             }
             
             .slider-slide img {
-                height: 120px;
+                height: 170px;
             }
             
             .slider-caption {
@@ -754,8 +750,8 @@
         /* Desktop grande */
         @media (min-width: 1200px) {
             .slider-container {
-                max-width: 1400px;
-                width: 92%;
+                max-width: 1522px;
+                width: 100%;
             }
             
             .slider-slide img {
@@ -782,6 +778,22 @@
             }
         }
 
+        .slider-slide::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 70%;
+            background: linear-gradient(to bottom, 
+                rgba(255, 255, 255, 0) 0%,
+                rgba(255, 255, 255, 0) 55%,
+                rgba(255, 255, 255, 1) 100%
+            );
+            pointer-events: none;
+            z-index: 1;
+        }
+
     </style>
 </head>
 <body>
@@ -795,9 +807,9 @@
             <a href="index.html">
                 <img class="thumbs mx-4" src="./img/Logo-GadgetGo-512x512-v2.png" alt="LogoGadget-Go" width="80">
             </a>
-                <a class="nav-link position-relative" href="#" data-bs-toggle="modal" data-bs-target="#carritoModal" style="font-size: 1.4rem;">
+                <a class="nav-link position-relative" href="#" data-bs-toggle="modal" data-bs-target="#carritoModal" style="font-size: 2rem;">
                     <i class="fa-solid fa-cart-shopping"></i>
-                    <span id="contador-carrito" class="position-absolute top-0 start-100 translate-middle badge rounded-pill" style="background-color: #fff7d4; color: #122C4F;">
+                    <span id="contador-carrito" class="cart-span position-absolute top-0 start-100 translate-middle badge rounded-pill" style="background-color: #FBF9E4; color: #122C4F;">
                         0
                     </span>
                 </a>
@@ -814,7 +826,7 @@
     </nav>
     <!--Inicio-->
     <section class="pt-3">
-        <div class="mt-5 pt-5 ">
+        <div class="mt-5 pt-3 ">
             <!-- Slider Deslizable -->
             <div class="slider-container">
                 <div class="slider-wrapper" id="sliderWrapper">
