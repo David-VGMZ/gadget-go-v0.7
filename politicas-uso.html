@@ -803,9 +803,8 @@
                 </a>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
+                    <a class="nav-link" href="#" style="font-size: 1.6rem;"><li class="nav-item fas fa-sign-out-alt " id="logoutBtn" style="display:none;"></li></a>
                     <li class="nav-item" id="loginNavBtn"><a class="nav-link" href="#loginModal" data-bs-toggle="modal" style="font-size: 1.2rem;">Iniciar Sesion</a></li>
-                    <li class="nav-item" id="registerNavBtn"><a class="nav-link" href="#registerModal" data-bs-toggle="modal" style="font-size: 1.2rem;">Registrarse</a></li>
-                    <li class="nav-item" id="logoutBtn" style="display:none;"><a class="nav-link" href="#" style="font-size: 1.2rem;">Cerrar Sesión</a></li>
                     <li class="nav-item"><a class="nav-link" href="cuenta.html" style="font-size: 1.2rem;">Mi cuenta</a></li>
                     <li class="nav-item"><a class="nav-link" href="#fter" style="font-size: 1.2rem;">Soporte</a></li>
                     <li class="nav-item" id="navInventario"><a class="nav-link" href="inventario2.html" style="font-size: 1.2rem;">Inventario</a></li>
@@ -1131,13 +1130,22 @@
                     <form>
                         <div class="mb-3">
                             <h4 class="modal-title" style="color: #122C4F;"><strong>¡Contáctanos!</strong></h4>
+                            <p>Para dudas, reclamaciones o soporte técnico sobre la PWA o sus pedidos, puede contactarnos a
+                            través de:</p>
+                            <ul>
+                                <li><strong>Correo Electrónico:</strong> gadget.gomx@gmail.com</li>
+                                <li class="mt-1"><strong>WhatsApp/Teléfono:</strong> (+52) 44-38-38-13-50</li>
+                            </ul>
                         </div>
                         <div class="mb-3">
                             <button type="button" class="btn btn-success ms-auto">
-                                <i class="fab fa-whatsapp me-2"></i>WhatsApp
+                                <a class="nav-link" href="https://wa.me/message/DUADVHTXENNMC1" target="_blank" rel="noopener noreferrer"><i class="fab fa-whatsapp me-2"></i>WhatsApp</a>
                             </button>
                             <button type="button" class="btn btn-ig ms-auto">
-                                <i class="fab fa-instagram me-2"></i>Instagram
+                                <a class="nav-link" href="https://www.instagram.com/gadget_go25?igsh=a3VnMzN0ajIwaDhs" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram me-2"></i>Instagram</a>
+                            </button>
+                            <button type="button" class="btn btn-primary ms-auto">
+                                <a class="nav-link" href="mailto:gadget.gomx@gmail.com" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-envelope me-2"></i>Correo</a>
                             </button>
                         </div>
                 </div>
